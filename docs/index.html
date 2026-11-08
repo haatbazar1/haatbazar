@@ -762,7 +762,7 @@
 
       /* ---------- helpers ---------- */
       function bnNum(n) { return Number(n).toLocaleString("bn-BD"); }
-      function fmtPrice(n) { return "৳" + bnNum(n); }
+      function fmtPrice(n) { return bnNum(n) + " টাকা"; }
       function unitBn(u) { return UNIT_BN[u] || u; }
       function esc(s) {
         return String(s).replace(/[&<>"']/g, function (m) {
@@ -856,7 +856,7 @@
             '<span class="card-body">' +
             '<span class="card-title">' + esc(p.title) + "</span>" +
             (p.negotiable ? '<span class="neg-tag">দরদাম করা যাবে</span>' : "") +
-            '<span class="card-price">' + fmtPrice(p.price) + ' <span class="unit">/ ' + esc(unitBn(p.unit)) + "</span></span>" +
+            '<span class="card-price">' + fmtPrice(p.price) + "</span>" +
             '<span class="card-loc">' + PIN_ICON + esc(p.district) + ", " + esc(p.upazila) + "</span>" +
             "</span></button>";
         }).join("");
@@ -900,7 +900,7 @@
           '<div class="detail-body">' +
           '<div class="detail-cat">' + esc(c.label) + " › " + esc(p.subcategory) + "</div>" +
           "<h2>" + esc(p.title) + "</h2>" +
-          '<div class="detail-price">' + fmtPrice(p.price) + ' <span class="unit">/ ' + esc(unitBn(p.unit)) + "</span></div>" +
+          '<div class="detail-price">' + fmtPrice(p.price) + "</div>" +
           (p.negotiable ? '<div style="margin-top:6px"><span class="neg-tag">দরদাম করা যাবে — বিক্রেতার সাথে কথা বলুন</span></div>' : "") +
           '<p class="detail-desc">' + esc(p.description) + "</p>" +
           '<div class="spec-grid">' +
@@ -930,7 +930,7 @@
         var c = CAT[p.category];
         document.getElementById("orderProd").innerHTML =
           '<span class="thumb" style="background:' + c.bg + '">' + iconFor(p.category) + "</span>" +
-          "<div><b>" + esc(p.title) + "</b><span>" + fmtPrice(p.price) + " / " + esc(unitBn(p.unit)) + "</span></div>";
+          "<div><b>" + esc(p.title) + "</b><span>" + fmtPrice(p.price) + "</span></div>";
         document.getElementById("ordQty").max = p.qty;
         updateTotal();
         show("order");
@@ -970,7 +970,7 @@
         var msg =
           "আসসালামু আলাইকুম, আমি HaatBazar থেকে অর্ডার করতে চাই।\n\n" +
           "পণ্য: " + p.title + "\n" +
-          "দাম: " + fmtPrice(p.price) + " / " + unitBn(p.unit) + "\n" +
+          "দাম: " + fmtPrice(p.price) + "\n" +
           "পরিমাণ: " + bnNum(qty) + " " + unitBn(p.unit) + "\n" +
           "সর্বমোট: " + fmtPrice(p.price * qty) + " (ডেলিভারি চার্জ ছাড়া)\n\n" +
           "আমার নাম: " + name + "\n" +
