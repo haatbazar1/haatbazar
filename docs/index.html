@@ -1,1024 +1,626 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="bn">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="data:," />
-    <title>হাটবাজার — HaatBazar | বাংলাদেশের অনলাইন কেনাবেচার বাজার</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Hind+Siliguri:wght@500;600;700&display=swap" rel="stylesheet" />
-    <style>
-      :root{
-        --bg:#f6f7f4;
-        --surface:#ffffff;
-        --surface-2:#eef3ec;
-        --ink:#16211a;
-        --ink-soft:#4c5a50;
-        --ink-faint:#7c8a80;
-        --line:#dde5da;
-        --accent:#15803d;
-        --accent-deep:#0e5f2d;
-        --accent-soft:#e3f2e6;
-        --wa:#1fae53;
-        --wa-deep:#14803c;
-        --orange:#ea580c;
-        --orange-soft:#fdf0e6;
-        --amber:#b45309;
-        --shadow:0 1px 2px rgba(20,40,25,.06),0 8px 24px -12px rgba(20,40,25,.18);
-        --radius:14px;
-      }
-      @media (prefers-color-scheme: dark){
-        :root{
-          --bg:#0f1511;
-          --surface:#18211a;
-          --surface-2:#1e2a20;
-          --ink:#e8f0e9;
-          --ink-soft:#b3c2b6;
-          --ink-faint:#82917f;
-          --line:#2b3a2e;
-          --accent:#3cb96a;
-          --accent-deep:#57cc82;
-          --accent-soft:#1d3325;
-          --wa:#25c05e;
-          --wa-deep:#2fd06a;
-          --orange:#f07830;
-          --orange-soft:#3a2415;
-          --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -12px rgba(0,0,0,.6);
-        }
-      }
-      *{box-sizing:border-box}
-      html{scroll-behavior:smooth}
-      body{
-        margin:0;background:var(--bg);color:var(--ink);
-        font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;
-        line-height:1.65;-webkit-font-smoothing:antialiased;
-      }
-      a{color:inherit}
-      button{font-family:inherit;cursor:pointer}
-      input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink)}
-      .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>হাটবাজার — বাংলাদেশের কেনাবেচা</title>
+<style>
+:root{--brand:#0f7a3d;--brand-dark:#0a5c2e;--accent:#f97316;--bg:#f6f7f6;--card:#fff;--text:#1a1a1a;--muted:#6b7280;--line:#e5e7eb;--wa:#25d366}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hind Siliguri','Noto Sans Bengali',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:15px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 14px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.hbar{display:flex;align-items:center;gap:12px;padding:10px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800;color:var(--brand)}
+.logo .bag{background:var(--accent);color:#fff;border-radius:10px;width:38px;height:38px;display:grid;place-items:center;font-size:20px}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.hspace{flex:1}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;font-size:14px;font-weight:600}
+.btn:hover{border-color:var(--brand);color:var(--brand)}
+.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn.primary:hover{background:var(--brand-dark);color:#fff}
+.btn.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.wa{background:var(--wa);color:#fff;border-color:var(--wa)}
+.btn.small{padding:5px 10px;font-size:13px}
+.btn.danger{color:#b91c1c;border-color:#fecaca}
+.announce{background:var(--accent);color:#fff;text-align:center;font-size:13.5px;padding:6px 10px;font-weight:600}
+.hero{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;padding:38px 0 30px}
+.hero h1{font-size:32px;line-height:1.25;margin-bottom:8px}
+.hero p{opacity:.92;max-width:640px}
+.searchbar{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.searchbar input[type=text]{flex:1;min-width:200px;padding:12px 14px;border:none;border-radius:10px}
+.searchbar select{padding:12px;border:none;border-radius:10px}
+.searchbar button{padding:12px 22px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:700}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:20px 0}
+.trust .tcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.trust .ic{font-size:26px}
+.trust b{display:block;margin-bottom:3px}
+.trust span{color:var(--muted);font-size:13.5px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:14px 2px;scrollbar-width:thin}
+.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-size:14px;font-weight:600}
+.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.filters select{padding:9px;border:1px solid var(--line);border-radius:9px;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;padding-bottom:30px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s}
+.pcard:hover{box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.pcard .vis{height:130px;display:grid;place-items:center;font-size:62px;background:linear-gradient(135deg,#eafaf0,#f0fdf4)}
+.pcard .bd{padding:13px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pcard h3{font-size:16px;line-height:1.35}
+.pcard .meta{color:var(--muted);font-size:13px}
+.price{color:var(--brand);font-weight:800;font-size:19px}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11.5px;border-radius:6px;padding:2px 7px;font-weight:700}
+.badge.green{background:#dcfce7;color:#166534}
+.verified{color:#2563eb;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
+.field{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;margin-bottom:11px;background:#fff}
+label.fl{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px;color:#374151}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}.hero h1{font-size:25px}}
+.err{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:14px}
+.ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-size:12.5px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-weight:600;font-size:14px}
+.tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat .scard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.stat .scard b{font-size:23px;display:block;color:var(--brand)}
+.stat .scard span{color:var(--muted);font-size:13px}
+footer{background:#0b3520;color:#d1d5db;margin-top:36px}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;padding:30px 0 18px}
+footer h4{color:#fff;margin-bottom:10px}
+footer a{display:block;padding:3.5px 0;font-size:14px;opacity:.9}
+footer a:hover{opacity:1;color:#fff}
+.copy{border-top:1px solid rgba(255,255,255,.15);padding:13px 0;text-align:center;font-size:13px}
+.wafloat{position:fixed;right:16px;bottom:16px;background:var(--wa);color:#fff;border-radius:999px;padding:13px 18px;font-weight:700;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:50;display:flex;gap:8px;align-items:center}
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.detail{grid-template-columns:1fr}}
+.detail .vis{height:280px;border-radius:16px;display:grid;place-items:center;font-size:120px;background:linear-gradient(135deg,#eafaf0,#f0fdf4);border:1px solid var(--line)}
+.kv{color:var(--muted);font-size:14px;margin:3px 0}
+.kv b{color:var(--text)}
+.mut{color:var(--muted)} .small{font-size:13px}
+.mt{margin-top:14px}.mb{margin-bottom:14px}
+.radio{display:flex;gap:8px;flex-wrap:wrap}
+.radio label{border:1px solid var(--line);border-radius:9px;padding:8px 13px;cursor:pointer;font-size:14px;font-weight:600}
+.radio input{margin-right:5px}
+.pagerow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+h2.ptitle{font-size:23px;margin:16px 0 6px}
+.prose p{margin-bottom:10px;line-height:1.65}
+.prose h3{margin:16px 0 7px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hbar">
+    <a class="logo" href="#/"><span class="bag">🛍️</span><span><span id="siteName">হাটবাজার</span><small id="siteTag">বাংলাদেশের কেনাবেচা</small></span></a>
+    <div class="hspace"></div>
+    <span id="authArea"></span>
+    <a class="btn primary" href="#/post">+ বিজ্ঞাপন দিন</a>
+  </div>
+</header>
+<div class="announce" id="announce" style="display:none"></div>
+<main class="wrap" id="app"><p class="mt mut">লোড হচ্ছে…</p></main>
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><h4 id="footName">হাটবাজার</h4><p class="small" id="footAbout" style="line-height:1.6"></p></div>
+      <div><h4>কাস্টমার সাপোর্ট</h4><a href="#/page/help">সাহায্য কেন্দ্র</a><a href="#/page/how-to-buy">কীভাবে কিনবেন</a><a href="#/page/refund">রিফান্ড ও রিটার্ন</a><a href="#/page/delivery">ডেলিভারি তথ্য</a><a href="#/page/contact">যোগাযোগ</a></div>
+      <div><h4>মার্কেট</h4><a href="#/">সব পণ্য</a><a href="#/page/about">আমাদের সম্পর্কে</a><a href="#/page/terms">শর্তাবলি</a><a href="#/page/privacy">গোপনীয়তা নীতি</a></div>
+      <div><h4>সেলার কর্নার</h4><a href="#/post">বিজ্ঞাপন দিন</a><a href="#/signup">সেলার অ্যাকাউন্ট খুলুন</a><a href="#/page/seller-help">সেলার সাপোর্ট</a><a href="#/page/payment-info">পেমেন্ট ও অর্ডার তথ্য</a></div>
+    </div>
+    <div class="copy" id="copyright"></div>
+  </div>
+</footer>
+<a class="wafloat" id="waFloat" target="_blank" rel="noopener">💬 WhatsApp Help</a>
 
-      /* ---------- Header ---------- */
-      header.site{
-        position:sticky;top:0;z-index:40;
-        background:var(--surface);border-bottom:1px solid var(--line);
-      }
-      .header-in{display:flex;align-items:center;gap:14px;padding:10px 0;flex-wrap:wrap}
-      .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-      .brand-mark{
-        width:42px;height:42px;border-radius:11px;background:var(--accent);
-        display:grid;place-items:center;color:#fff;flex-shrink:0;
-      }
-      .brand-mark svg{width:26px;height:26px}
-      .brand-name{font-size:1.35rem;font-weight:800;line-height:1.15;color:var(--accent-deep)}
-      .brand-name small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-faint);letter-spacing:.02em}
-      .header-search{flex:1;min-width:220px;display:flex}
-      .header-search input{
-        flex:1;padding:11px 14px;border:1.5px solid var(--line);border-right:none;
-        border-radius:12px 0 0 12px;background:var(--bg);outline:none;
-      }
-      .header-search input:focus{border-color:var(--accent)}
-      .header-search button{
-        border:none;background:var(--accent);color:#fff;padding:0 20px;
-        border-radius:0 12px 12px 0;font-weight:700;font-size:.95rem;
-      }
-      .header-tag{display:none;color:var(--ink-soft);font-size:.9rem;font-weight:600}
-      @media(min-width:900px){.header-tag{display:block}}
+<script>
+const API = location.hostname.endsWith('kesug.com') ? 'api.php' : 'https://haatbazarbd.kesug.com/api.php';
+const BN = '০১২৩৪৫৬৭৮৯';
+const bn = n => String(n).replace(/\d/g, d => BN[d]);
+const money = n => bn(Number(n).toLocaleString('en-IN')) + ' টাকা';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DISTRICTS = ['ঢাকা','গাজীপুর','নারায়ণগঞ্জ','টাঙ্গাইল','নরসিংদী','মুন্সীগঞ্জ','মানিকগঞ্জ','রাজবাড়ী','মাদারীপুর','গোপালগঞ্জ','ফরিদপুর','শরীয়তপুর','কিশোরগঞ্জ','চট্টগ্রাম','কুমিল্লা','কক্সবাজার','রাঙ্গামাটি','বান্দরবান','খাগড়াছড়ি','ফেনী','নোয়াখালী','লক্ষ্মীপুর','চাঁদপুর','ব্রাহ্মণবাড়িয়া','খুলনা','যশোর','কুষ্টিয়া','ঝিনাইদহ','মাগুরা','নড়াইল','বাগেরহাট','সাতক্ষীরা','চুয়াডাঙ্গা','মেহেরপুর','রাজশাহী','সিরাজগঞ্জ','পাবনা','বগুড়া','নাটোর','চাঁপাইনবাবগঞ্জ','নওগাঁ','জয়পুরহাট','রংপুর','দিনাজপুর','লালমনিরহাট','নীলফামারী','গাইবান্ধা','ঠাকুরগাঁও','পঞ্চগড়','কুড়িগ্রাম','বরিশাল','পটুয়াখালী','ভোলা','পিরোজপুর','বরগুনা','ঝালকাঠি','সিলেট','মৌলভীবাজার','হবিগঞ্জ','সুনামগঞ্জ','ময়মনসিংহ','জামালপুর','নেত্রকোনা','শেরপুর'];
+let S = {settings:{}, categories:[], user:null, filters:{q:'',category:'',subcategory:'',district:'',sale_type:''}};
+const token = () => localStorage.getItem('hb_token') || '';
+const otoken = () => localStorage.getItem('hb_owner') || '';
+async function api(action, opts = {}) {
+  const headers = {'Content-Type':'application/json'};
+  if (opts.owner) { if (otoken()) headers.Authorization = 'Bearer ' + otoken(); }
+  else if (token()) headers.Authorization = 'Bearer ' + token();
+  const tk = opts.owner ? otoken() : token();
+  const res = await fetch(API + '?action=' + action + (tk ? '&t=' + encodeURIComponent(tk) : ''), {method: opts.method || (opts.body ? 'POST' : 'GET'), headers, body: opts.body ? JSON.stringify(opts.body) : undefined});
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+  return data;
+}
+const catOf = key => S.categories.find(c => c.cat_key === key);
+const catLabel = key => catOf(key)?.label || key;
+const catIcon = key => catOf(key)?.icon || '🛍️';
+const subLabel = (key, sub) => (catOf(key)?.subs || []).find(x => x.key === sub)?.label || sub;
+const waLink = text => 'https://wa.me/' + (S.settings.whatsapp || '8801629152161') + '?text=' + encodeURIComponent(text);
+const STATUS_BN = {pending:'অপেক্ষমাণ', confirmed:'নিশ্চিত', shipped:'পাঠানো হয়েছে', delivered:'ডেলিভারি সম্পন্ন', cancelled:'বাতিল'};
+const app = document.getElementById('app');
 
-      /* ---------- Hero ---------- */
-      .hero{
-        background:linear-gradient(160deg,var(--accent-soft),var(--surface) 75%);
-        border-bottom:1px solid var(--line);
-      }
-      .hero-in{padding:38px 0 34px;text-align:center}
-      .hero h1{font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:800;margin:0 0 10px;line-height:1.3}
-      .hero p{max-width:640px;margin:0 auto 20px;color:var(--ink-soft);font-size:1.02rem}
-      .hero-search{display:flex;max-width:560px;margin:0 auto;background:var(--surface);
-        border:1.5px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
-      .hero-search input{flex:1;border:none;padding:14px 16px;background:transparent;outline:none;min-width:0}
-      .hero-search button{border:none;background:var(--accent);color:#fff;padding:0 24px;font-weight:700}
-      .hero-chips{margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-      .hero-chips span{font-size:.82rem;background:var(--surface);border:1px solid var(--line);
-        padding:4px 12px;border-radius:999px;color:var(--ink-soft)}
+function renderAuth() {
+  const a = document.getElementById('authArea');
+  if (S.user) a.innerHTML = `<a class="btn" href="#/account">আমার অ্যাকাউন্ট</a> <button class="btn" onclick="doLogout()">লগআউট</button>`;
+  else a.innerHTML = `<a class="btn" href="#/login">লগইন</a> <a class="btn accent" href="#/signup">সাইন আপ</a>`;
+}
+async function doLogout() { try { await api('logout', {body:{}}); } catch(e) {} localStorage.removeItem('hb_token'); S.user = null; renderAuth(); location.hash = '#/'; render(); }
 
-      /* ---------- Sections ---------- */
-      section.block{padding:30px 0 6px}
-      .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-      .sec-head h2{font-size:1.35rem;font-weight:800;margin:0}
-      .sec-head .count{color:var(--ink-faint);font-weight:600;font-size:.95rem}
+async function loadListings() {
+  const f = S.filters;
+  const qs = new URLSearchParams();
+  if (f.q) qs.set('q', f.q); if (f.category) qs.set('category', f.category); if (f.subcategory) qs.set('subcategory', f.subcategory);
+  if (f.district) qs.set('district', f.district); if (f.sale_type) qs.set('sale_type', f.sale_type);
+  const res = await fetch(API + '?action=listings&' + qs.toString());
+  return res.json();
+}
 
-      /* Category bar */
-      .cat-bar{display:flex;gap:8px;flex-wrap:wrap;padding:4px 2px 12px}
-      .cat-chip{
-        flex-shrink:0;display:flex;align-items:center;gap:7px;
-        border:1.5px solid var(--line);background:var(--surface);color:var(--ink);
-        padding:8px 14px;border-radius:999px;font-weight:600;font-size:.92rem;
-      }
-      .cat-chip .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-      .cat-chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
-      .cat-chip.active .dot{background:#fff}
+function productCard(p) {
+  return `<div class="pcard"><a href="#/product/${p.id}"><div class="vis">${catIcon(p.category)}</div></a><div class="bd">
+    <a href="#/product/${p.id}"><h3>${esc(p.title)}</h3></a>
+    <div class="meta">${esc(subLabel(p.category, p.subcategory))} · ${esc(p.district)}</div>
+    <div class="price">${money(p.price)}</div>
+    <div class="meta">বিক্রেতা: ${esc(p.seller_name)} ${p.verified ? '<span class="verified">✓ যাচাইকৃত</span>' : ''}</div>
+    <div>${p.sale_type === 'wholesale' ? '<span class="badge">পাইকারি</span>' : p.sale_type === 'retail' ? '<span class="badge green">খুচরা</span>' : '<span class="badge">খুচরা ও পাইকারি</span>'} ${p.quantity <= 0 ? '<span class="badge" style="background:#fee2e2;color:#991b1b">স্টক শেষ</span>' : ''}</div>
+  </div></div>`;
+}
 
-      /* Filters row */
-      .filter-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
-      .filter-row label{font-weight:600;font-size:.92rem;color:var(--ink-soft)}
-      .filter-row select{
-        padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);outline:none;
-      }
-      .filter-row select:focus{border-color:var(--accent)}
-      .clear-btn{border:none;background:none;color:var(--accent);font-weight:700;font-size:.9rem;padding:6px 2px}
+async function viewHome() {
+  const st = S.settings;
+  app.innerHTML = `
+  <section class="hero" style="margin:0 -14px;padding-left:14px;padding-right:14px">
+    <h1>${esc(st.hero_title || '')}</h1><p>${esc(st.hero_sub || '')}</p>
+    <form class="searchbar" onsubmit="doSearch(event)">
+      <input type="text" id="q" placeholder="কী খুঁজছেন? মোবাইল, পোশাক, ধান…" value="${esc(S.filters.q)}">
+      <select id="qdist"><option value="">সারা বাংলাদেশ</option>${DISTRICTS.map(d => `<option ${S.filters.district === d ? 'selected' : ''}>${d}</option>`).join('')}</select>
+      <button type="submit">খুঁজুন</button>
+    </form>
+  </section>
+  <div class="trust">
+    <div class="tcard"><div class="ic">🚚</div><div><b>সারা দেশে ডেলিভারি</b><span>ঢাকার ভিতরে ও বাইরে হোম ডেলিভারি সুবিধা</span></div></div>
+    <div class="tcard"><div class="ic">💵</div><div><b>ক্যাশ অন ডেলিভারি</b><span>পণ্য হাতে পেয়ে টাকা পরিশোধ করুন</span></div></div>
+    <div class="tcard"><div class="ic">🛡️</div><div><b>যাচাইকৃত বিক্রেতা</b><span>যাচাইকৃত বিক্রেতাদের কাছ থেকে নিশ্চিন্তে কিনুন</span></div></div>
+    <div class="tcard"><div class="ic">📞</div><div><b>সরাসরি যোগাযোগ</b><span>বিক্রেতার সঙ্গে সরাসরি কথা বলে অর্ডার করুন</span></div></div>
+  </div>
+  <div class="cats">
+    <button class="chip ${!S.filters.category ? 'on' : ''}" onclick="setCat('')">🛍️ সব</button>
+    ${S.categories.map(c => `<button class="chip ${S.filters.category === c.cat_key ? 'on' : ''}" onclick="setCat('${c.cat_key}')">${c.icon} ${esc(c.label)}</button>`).join('')}
+  </div>
+  <div class="filters">
+    ${S.filters.category ? `<select onchange="setSub(this.value)"><option value="">সব সাব-ক্যাটাগরি</option>${(catOf(S.filters.category)?.subs || []).map(s2 => `<option value="${s2.key}" ${S.filters.subcategory === s2.key ? 'selected' : ''}>${esc(s2.label)}</option>`).join('')}</select>` : ''}
+    <select onchange="setSale(this.value)"><option value="">সব ধরন</option><option value="retail" ${S.filters.sale_type === 'retail' ? 'selected' : ''}>খুচরা</option><option value="wholesale" ${S.filters.sale_type === 'wholesale' ? 'selected' : ''}>পাইকারি</option></select>
+    <select onchange="setDist(this.value)"><option value="">সব জেলা</option>${DISTRICTS.map(d => `<option ${S.filters.district === d ? 'selected' : ''}>${d}</option>`).join('')}</select>
+  </div>
+  <h2 class="ptitle">সব পণ্য ও বিজ্ঞাপন <span id="pcount" class="mut"></span></h2>
+  <div class="grid" id="grid"><p class="mut">লোড হচ্ছে…</p></div>`;
+  const data = await loadListings();
+  document.getElementById('pcount').textContent = '(' + bn(data.total || 0) + ')';
+  document.getElementById('grid').innerHTML = (data.items || []).length ? data.items.map(productCard).join('') : '<p class="mut">কোনো পণ্য পাওয়া যায়নি।</p>';
+}
+function doSearch(e) { e.preventDefault(); S.filters.q = document.getElementById('q').value.trim(); S.filters.district = document.getElementById('qdist').value; viewHome(); }
+function setCat(k) { S.filters.category = k; S.filters.subcategory = ''; viewHome(); }
+function setSub(v) { S.filters.subcategory = v; viewHome(); }
+function setSale(v) { S.filters.sale_type = v; viewHome(); }
+function setDist(v) { S.filters.district = v; viewHome(); }
 
-      /* Product grid */
-      .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-      @media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
-      @media(min-width:980px){.grid{grid-template-columns:repeat(4,1fr);gap:18px}}
-      .card{
-        background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-        overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);
-        cursor:pointer;text-align:left;padding:0;width:100%;
-      }
-      .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-      .card-visual{height:118px;display:grid;place-items:center;position:relative}
-      .card-visual svg{width:52px;height:52px;opacity:.9}
-      .card-visual .sub{position:absolute;bottom:8px;left:10px;font-size:.72rem;font-weight:700;
-        background:rgba(255,255,255,.85);color:#22301f;padding:2px 9px;border-radius:999px}
-      @media (prefers-color-scheme: dark){.card-visual .sub,.detail-visual .sub{background:rgba(10,15,10,.78);color:#dceadd}}
-      .card-body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
-      .card-title{font-weight:700;font-size:.97rem;line-height:1.45;display:-webkit-box;
-        -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
-      .card-price{color:var(--accent-deep);font-weight:800;font-size:1.08rem}
-      .card-price .unit{font-size:.8rem;font-weight:600;color:var(--ink-faint)}
-      .card-loc{margin-top:auto;color:var(--ink-faint);font-size:.83rem;display:flex;align-items:center;gap:4px}
-      .card-loc svg{width:13px;height:13px;flex-shrink:0}
-      .neg-tag{font-size:.72rem;font-weight:700;color:var(--amber);background:var(--orange-soft);
-        padding:1px 8px;border-radius:999px;width:fit-content}
-      .empty{grid-column:1/-1;text-align:center;padding:44px 16px;color:var(--ink-soft);
-        background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius)}
-      .empty strong{display:block;font-size:1.05rem;color:var(--ink);margin-bottom:4px}
-
-      /* Trust */
-      .trust-grid{display:grid;grid-template-columns:1fr;gap:12px}
-      @media(min-width:640px){.trust-grid{grid-template-columns:repeat(2,1fr)}}
-      @media(min-width:980px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
-      .trust-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-        padding:18px;box-shadow:var(--shadow)}
-      .trust-ic{width:42px;height:42px;border-radius:10px;background:var(--accent-soft);
-        display:grid;place-items:center;margin-bottom:10px;color:var(--accent)}
-      .trust-ic svg{width:23px;height:23px}
-      .trust-card h3{margin:0 0 5px;font-size:1.02rem}
-      .trust-card p{margin:0;color:var(--ink-soft);font-size:.9rem}
-
-      /* ---------- Detail / pages ---------- */
-      .page-head{display:flex;align-items:center;gap:12px;padding:22px 0 14px}
-      .back-btn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);
-        background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:700;font-size:.9rem;color:var(--ink)}
-      .back-btn:hover{border-color:var(--accent);color:var(--accent)}
-      .detail{background:var(--surface);border:1px solid var(--line);border-radius:18px;
-        overflow:hidden;box-shadow:var(--shadow);margin-bottom:30px}
-      .detail-visual{height:190px;display:grid;place-items:center;position:relative}
-      .detail-visual svg{width:96px;height:96px;opacity:.9}
-      .detail-visual .sub{position:absolute;bottom:12px;left:14px;font-size:.8rem;font-weight:700;
-        background:rgba(255,255,255,.88);color:#22301f;padding:3px 12px;border-radius:999px}
-      .detail-body{padding:22px}
-      .detail-cat{font-size:.83rem;font-weight:700;color:var(--accent);margin-bottom:4px}
-      .detail-body h2{margin:0 0 8px;font-size:1.5rem;line-height:1.4}
-      .detail-price{font-size:1.7rem;font-weight:800;color:var(--accent-deep)}
-      .detail-price .unit{font-size:.95rem;font-weight:600;color:var(--ink-faint)}
-      .detail-desc{color:var(--ink-soft);margin:12px 0 18px;font-size:1rem}
-      .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-      @media(min-width:640px){.spec-grid{grid-template-columns:repeat(3,1fr)}}
-      .spec{background:var(--surface-2);border-radius:10px;padding:10px 13px}
-      .spec b{display:block;font-size:.76rem;color:var(--ink-faint);font-weight:600;margin-bottom:1px}
-      .spec span{font-weight:700;font-size:.95rem}
-      .seller-box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:20px;
-        display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-      .seller-ic{width:44px;height:44px;border-radius:50%;background:var(--accent-soft);
-        display:grid;place-items:center;color:var(--accent);flex-shrink:0}
-      .seller-ic svg{width:24px;height:24px}
-      .seller-box .who{flex:1;min-width:180px}
-      .seller-box .who b{display:block}
-      .seller-box .who span{color:var(--ink-soft);font-size:.88rem}
-      .action-row{display:flex;gap:10px;flex-wrap:wrap}
-      .btn{border:none;border-radius:12px;padding:14px 22px;font-weight:700;font-size:1rem;
-        display:inline-flex;align-items:center;gap:8px;text-decoration:none;justify-content:center}
-      .btn svg{width:20px;height:20px;flex-shrink:0}
-      .btn-wa{background:var(--wa);color:#fff}
-      .btn-wa:hover{background:var(--wa-deep)}
-      .btn-order{background:var(--accent);color:#fff;flex:1;min-width:170px}
-      .btn-order:hover{background:var(--accent-deep)}
-      .btn-outline{border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
-      .btn-orange{background:var(--orange);color:#fff}
-
-      /* Order form */
-      .form-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;
-        box-shadow:var(--shadow);padding:22px;margin-bottom:30px;max-width:680px}
-      .form-card h2{margin:0 0 4px;font-size:1.35rem}
-      .form-prod{display:flex;gap:12px;align-items:center;background:var(--surface-2);
-        border-radius:12px;padding:12px 14px;margin:14px 0 18px}
-      .form-prod .thumb{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
-      .form-prod .thumb svg{width:28px;height:28px}
-      .form-prod b{display:block;line-height:1.4}
-      .form-prod span{color:var(--accent-deep);font-weight:800}
-      .field{margin-bottom:15px}
-      .field label{display:block;font-weight:700;font-size:.93rem;margin-bottom:6px}
-      .field input,.field select,.field textarea{
-        width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;
-        background:var(--bg);outline:none;
-      }
-      .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
-      .field .err{color:#c22727;font-size:.85rem;margin-top:4px;display:none}
-      .field.invalid input,.field.invalid textarea{border-color:#c22727}
-      .field.invalid .err{display:block}
-      .total-row{display:flex;justify-content:space-between;align-items:center;
-        background:var(--accent-soft);border-radius:11px;padding:12px 16px;margin:6px 0 14px;font-weight:700}
-      .total-row .amt{font-size:1.25rem;color:var(--accent-deep)}
-      .note-box{background:var(--orange-soft);border-radius:11px;padding:11px 15px;
-        font-size:.92rem;margin-bottom:14px;color:var(--ink)}
-      .submit-btn{width:100%;font-size:1.05rem}
-
-      /* Info pages */
-      .info-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;
-        box-shadow:var(--shadow);padding:26px 24px;margin-bottom:30px;max-width:820px}
-      .info-card h2{margin:0 0 8px;font-size:1.5rem}
-      .info-card .intro{color:var(--ink-soft);margin:0 0 16px}
-      .info-card ul{margin:0 0 16px;padding-left:20px;color:var(--ink-soft)}
-      .info-card ul li{margin-bottom:9px}
-      .info-card ul li b{color:var(--ink)}
-      .info-card p{color:var(--ink-soft);margin:0 0 12px}
-      .contact-rows{display:grid;gap:10px;margin:18px 0}
-      .contact-row{display:flex;gap:12px;align-items:center;background:var(--surface-2);
-        border-radius:12px;padding:13px 16px}
-      .contact-row .ic{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);
-        display:grid;place-items:center;color:var(--accent);flex-shrink:0}
-      .contact-row .ic svg{width:21px;height:21px}
-      .contact-row b{display:block;font-size:.8rem;color:var(--ink-faint);font-weight:600}
-      .contact-row a,.contact-row span.val{font-weight:700;font-size:1.02rem;text-decoration:none}
-      .contact-row a:hover{color:var(--accent)}
-
-      /* ---------- Footer ---------- */
-      footer.site{margin-top:44px;background:var(--surface);border-top:1px solid var(--line)}
-      .foot-grid{display:grid;grid-template-columns:1fr;gap:26px;padding:34px 0 8px}
-      @media(min-width:640px){.foot-grid{grid-template-columns:repeat(2,1fr)}}
-      @media(min-width:980px){.foot-grid{grid-template-columns:repeat(4,1fr)}}
-      .foot-grid h4{margin:0 0 12px;font-size:1rem;color:var(--accent-deep)}
-      .foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-      .foot-link{border:none;background:none;padding:0;text-align:left;color:var(--ink-soft);
-        font-size:.94rem;font-weight:500}
-      .foot-link:hover{color:var(--accent)}
-      .foot-grid p{color:var(--ink-soft);font-size:.93rem;margin:0 0 12px}
-      .market-box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}
-      .market-box b{display:block;color:var(--accent-deep);margin-bottom:3px}
-      .market-box span{font-size:.88rem;color:var(--ink-soft)}
-      .pay-strip{border-top:1px solid var(--line);margin-top:22px;padding:16px 0;
-        display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between}
-      .pay-strip b{display:block;font-size:.95rem}
-      .pay-strip span{color:var(--ink-soft);font-size:.88rem}
-      .pay-tags{display:flex;gap:8px;flex-wrap:wrap}
-      .pay-tags span{border:1px solid var(--line);border-radius:8px;padding:5px 12px;
-        font-size:.83rem;font-weight:600;color:var(--ink-soft);background:var(--bg)}
-      .copy-strip{border-top:1px solid var(--line);padding:14px 0 20px;display:flex;
-        justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ink-faint);font-size:.86rem}
-      .copy-strip .links{display:flex;gap:16px}
-      .copy-strip button{border:none;background:none;color:var(--ink-faint);font-size:.86rem;padding:0}
-      .copy-strip button:hover{color:var(--accent)}
-
-      /* Floating WhatsApp */
-      .wa-float{
-        position:fixed;right:16px;bottom:16px;z-index:50;
-        background:var(--wa);color:#fff;text-decoration:none;font-weight:700;
-        display:flex;align-items:center;gap:8px;padding:13px 20px;border-radius:999px;
-        box-shadow:0 10px 26px -8px rgba(20,110,50,.55);font-size:.97rem;
-      }
-      .wa-float svg{width:22px;height:22px}
-      .wa-float:hover{background:var(--wa-deep)}
-      @media(max-width:640px){
-        .wa-float{padding:9px 15px;font-size:.88rem;bottom:10px;right:12px;gap:6px}
-        .wa-float svg{width:19px;height:19px}
-      }
-
-      .view{display:none}
-      .view.on{display:block}
-      main{padding-bottom:84px}
-    </style>
-  </head>
-  <body>
-    <!-- ================= HEADER ================= -->
-    <header class="site">
-      <div class="wrap header-in">
-        <a class="brand" href="#" id="brandHome" aria-label="হাটবাজার হোম">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 4.6 4h14.8L21 9.5"/><path d="M4 9.5h16V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M9.5 21v-6h5v6"/></svg>
-          </span>
-          <span class="brand-name">হাটবাজার<small>HaatBazar — অনলাইন বাজার</small></span>
-        </a>
-        <form class="header-search" id="headerSearchForm" role="search">
-          <input type="search" id="headerSearch" placeholder="পণ্য খুঁজুন… যেমন: চাল, শাড়ি, মোবাইল" aria-label="পণ্য খুঁজুন" />
-          <button type="submit">খুঁজুন</button>
-        </form>
-        <span class="header-tag">বাংলাদেশের কেনাবেচা, এখন হাটবাজারে</span>
+async function viewProduct(id) {
+  app.innerHTML = '<p class="mt mut">লোড হচ্ছে…</p>';
+  let p;
+  try { p = (await api('listing&id=' + encodeURIComponent(id))).item; } catch(e) { app.innerHTML = '<div class="card"><p>পণ্যটি পাওয়া যায়নি।</p><p class="mt"><a class="btn" href="#/">← সব পণ্য</a></p></div>'; return; }
+  const st = S.settings;
+  const payOpts = [['cod','ক্যাশ অন ডেলিভারি (পণ্য পেয়ে টাকা)'],['bkash','বিকাশ'],['nagad','নগদ'],['rocket','রকেট']].filter(([k]) => (st['pay_' + k] ?? '1') === '1');
+  const u = S.user;
+  app.innerHTML = `
+  <p class="mt"><a href="#/" class="mut">← সব পণ্য</a> <span class="mut">/ ${esc(catLabel(p.category))} / ${esc(subLabel(p.category, p.subcategory))}</span></p>
+  <div class="detail mt">
+    <div class="vis">${catIcon(p.category)}</div>
+    <div>
+      <h2 style="font-size:25px;line-height:1.3">${esc(p.title)}</h2>
+      <div class="price" style="font-size:27px;margin:8px 0">${money(p.price)} <span class="mut small">/ ${esc(p.unit)}</span></div>
+      <p class="kv">ক্যাটাগরি: <b>${esc(catLabel(p.category))} · ${esc(subLabel(p.category, p.subcategory))}</b></p>
+      <p class="kv">এলাকা: <b>${esc(p.district)}${p.upazila ? ', ' + esc(p.upazila) : ''}</b></p>
+      <p class="kv">স্টক: <b>${bn(p.quantity)}টি</b> · সর্বনিম্ন অর্ডার: <b>${bn(p.min_order)}টি</b> ${p.negotiable ? '· <b>দাম আলোচনা সাপেক্ষ</b>' : ''}</p>
+      <p class="kv">বিক্রেতা: <b>${esc(p.seller_name)}</b> ${p.verified ? '<span class="verified">✓ যাচাইকৃত বিক্রেতা</span>' : ''}${p.business_name ? ' · ' + esc(p.business_name) : ''}</p>
+      <p class="kv">ডেলিভারি: <b>${p.delivery_available ? 'আছে (ঢাকায় ' + money(st.delivery_inside || 60) + ', বাইরে ' + money(st.delivery_outside || 120) + ')' : 'নেই — নিজে সংগ্রহ করতে হবে'}</b></p>
+      <div class="prose mt"><p>${esc(p.description || '')}</p></div>
+      <div class="pagerow mt">
+        <a class="btn" href="tel:${esc(p.phone)}">📞 বিক্রেতাকে কল করুন</a>
+        <a class="btn wa" target="_blank" rel="noopener" href="${waLink('আসসালামু আলাইকুম, আমি এই পণ্যটি কিনতে চাই:\n' + p.title + '\nদাম: ' + money(p.price))}">WhatsApp-এ অর্ডার করুন</a>
       </div>
-    </header>
-
-    <main>
-      <!-- ================= HOME VIEW ================= -->
-      <div class="view on" id="view-home">
-        <section class="hero">
-          <div class="wrap hero-in">
-            <h1>বাংলাদেশের কেনাবেচা, এখন হাটবাজারে</h1>
-            <p>গ্রামের হাট থেকে শহরের বাজার — কৃষি পণ্য, গবাদি পশু, ইলেকট্রনিক্সসহ সবকিছু খুচরা ও পাইকারি দামে কিনুন সারা দেশে। বিক্রেতার সাথে সরাসরি যোগাযোগ, কোনো লুকানো চার্জ নেই।</p>
-            <form class="hero-search" id="heroSearchForm" role="search">
-              <input type="search" id="heroSearch" placeholder="কী কিনতে চান? এখানে লিখুন…" aria-label="কী কিনতে চান" />
-              <button type="submit">খুঁজুন</button>
-            </form>
-            <div class="hero-chips">
-              <span>খুচরা ও পাইকারি</span><span>সারা বাংলাদেশে ডেলিভারি</span><span>ক্যাশ অন ডেলিভারি</span><span>বিক্রেতার সাথে সরাসরি দরদাম</span>
-            </div>
-          </div>
-        </section>
-
-        <div class="wrap">
-          <section class="block" id="categoriesSection">
-            <div class="sec-head"><h2>ক্যাটাগরি</h2></div>
-            <div class="cat-bar" id="catBar" role="tablist" aria-label="ক্যাটাগরি"></div>
-          </section>
-
-          <section class="block">
-            <div class="sec-head">
-              <h2>সব পণ্য ও বিজ্ঞাপন</h2>
-              <span class="count" id="gridCount"></span>
-            </div>
-            <div class="filter-row">
-              <label for="districtFilter">জেলা:</label>
-              <select id="districtFilter"><option value="">সব জেলা</option></select>
-              <span id="activeFilterNote" style="color:var(--ink-faint);font-size:.9rem"></span>
-              <button type="button" class="clear-btn" id="clearFilters" hidden>সব ফিল্টার মুছুন</button>
-            </div>
-            <div class="grid" id="grid"></div>
-          </section>
-
-          <section class="block" style="padding-bottom:10px">
-            <div class="sec-head"><h2>কেন HaatBazar?</h2></div>
-            <div class="trust-grid">
-              <div class="trust-card">
-                <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 4.6 4h14.8L21 9.5"/><path d="M4 9.5h16V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M9.5 21v-6h5v6"/></svg></div>
-                <h3>চেনা মুখ, চেনা স্বাদ</h3>
-                <p>বিক্রেতার নাম, এলাকা ও ফোন নম্বর সব খোলামেলা।</p>
-              </div>
-              <div class="trust-card">
-                <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4 0-7-3-7-8 0-4 3-8 7-10 4 2 7 6 7 10 0 5-3 8-7 8Z"/><path d="M12 21c0-5 1-9 4-12"/></svg></div>
-                <h3>টাটকা মানেই সত্যিকারের টাটকা</h3>
-                <p>সরাসরি কৃষক/উৎপাদকের কাছ থেকে, গুদামের পণ্য নয়।</p>
-              </div>
-              <div class="trust-card">
-                <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5.5"/></svg></div>
-                <h3>কোনো লুকানো চার্জ নেই</h3>
-                <p>যা দাম দেখছেন সেটাই দাম, বিক্রেতার সাথে সরাসরি দরদাম করুন।</p>
-              </div>
-              <div class="trust-card">
-                <div class="trust-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11v9H3zM14 11h4l3 3v3h-7z"/><circle cx="7" cy="19" r="1.8"/><circle cx="17.5" cy="19" r="1.8"/></svg></div>
-                <h3>কাছের বিক্রেতা</h3>
-                <p>জেলা দিয়ে খুঁজে নিজের এলাকার বিক্রেতা বের করুন।</p>
-              </div>
-            </div>
-          </section>
-        </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="mb">🛒 অর্ডার করুন</h3>
+    <div id="ordMsg"></div>
+    ${p.quantity <= 0 ? '<p class="err">দুঃখিত, পণ্যটির স্টক শেষ।</p>' : `
+    <form onsubmit="submitOrder(event, '${p.id}')">
+      <div class="grid2">
+        <div><label class="fl">পরিমাণ</label><input class="field" type="number" id="oQty" min="${p.min_order}" max="${p.quantity}" value="${p.min_order}" required oninput="updTotal(${p.price})"></div>
+        <div><label class="fl">আপনার নাম</label><input class="field" id="oName" required value="${u ? esc(u.name) : ''}" placeholder="নাম লিখুন"></div>
       </div>
-
-      <!-- ================= PRODUCT VIEW ================= -->
-      <div class="view" id="view-product">
-        <div class="wrap">
-          <div class="page-head">
-            <button type="button" class="back-btn" data-nav="home">← সব পণ্যে ফিরুন</button>
-          </div>
-          <div class="detail" id="detailBox"></div>
-        </div>
+      <div class="grid2">
+        <div><label class="fl">মোবাইল নম্বর</label><input class="field" id="oPhone" required value="${u ? esc(u.phone) : ''}" placeholder="01XXXXXXXXX"></div>
+        <div><label class="fl">জেলা</label><select class="field" id="oDist" onchange="updTotal(${p.price})">${DISTRICTS.map(d => `<option ${u && u.district === d ? 'selected' : ''}>${d}</option>`).join('')}</select></div>
       </div>
-
-      <!-- ================= ORDER VIEW ================= -->
-      <div class="view" id="view-order">
-        <div class="wrap">
-          <div class="page-head">
-            <button type="button" class="back-btn" id="orderBack">← পণ্যের পেজে ফিরুন</button>
-          </div>
-          <form class="form-card" id="orderForm" novalidate>
-            <h2>অর্ডার করুন</h2>
-            <p style="margin:0;color:var(--ink-soft)">আপনার তথ্য দিন — অর্ডারটি সরাসরি বিক্রেতার WhatsApp-এ পাঠানো হবে।</p>
-            <div class="form-prod" id="orderProd"></div>
-            <div class="field" id="fName">
-              <label for="ordName">আপনার নাম *</label>
-              <input id="ordName" type="text" placeholder="যেমন: মোঃ মিলন মিয়া" autocomplete="name" />
-              <div class="err">নাম লিখুন।</div>
-            </div>
-            <div class="field" id="fPhone">
-              <label for="ordPhone">মোবাইল নম্বর *</label>
-              <input id="ordPhone" type="tel" placeholder="+8801XXXXXXXXX" autocomplete="tel" />
-              <div class="err">সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন (01 দিয়ে শুরু)।</div>
-            </div>
-            <div class="field" id="fAddr">
-              <label for="ordAddr">ডেলিভারির ঠিকানা *</label>
-              <textarea id="ordAddr" rows="2" placeholder="বাসা/হোল্ডিং, রোড, এলাকা, উপজেলা, জেলা"></textarea>
-              <div class="err">ডেলিভারির ঠিকানা লিখুন।</div>
-            </div>
-            <div class="field">
-              <label for="ordQty">পরিমাণ</label>
-              <input id="ordQty" type="number" min="1" value="1" />
-            </div>
-            <div class="field">
-              <label for="ordPay">পেমেন্টের মাধ্যম</label>
-              <select id="ordPay">
-                <option value="ক্যাশ অন ডেলিভারি">ক্যাশ অন ডেলিভারি (পণ্য পেয়ে টাকা)</option>
-                <option value="বিকাশ">বিকাশ</option>
-                <option value="নগদ">নগদ</option>
-                <option value="রকেট">রকেট</option>
-              </select>
-            </div>
-            <div class="total-row"><span>সর্বমোট (ডেলিভারি চার্জ ছাড়া)</span><span class="amt" id="ordTotal"></span></div>
-            <div class="note-box">অর্ডারটি WhatsApp-এর মাধ্যমে বিক্রেতার কাছে পাঠানো হবে। ডেলিভারি চার্জ বিক্রেতা ফোনে/চ্যাটে নিশ্চিত করবেন।</div>
-            <button type="submit" class="btn btn-wa submit-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.1-2.3-.1a10.6 10.6 0 0 1-5.4-4.7c-.6-1-.6-1.9-.5-2 .1-.2.6-1.5.9-1.6h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c.7 1.2 1.5 2 2.6 2.6l.5-.5.6-.4c.2-.1.4-.1.6 0l2 .9c.5.3.5.5.4.7Z"/></svg>
-              WhatsApp-এ অর্ডার পাঠান
-            </button>
-          </form>
-        </div>
+      <label class="fl">সম্পূর্ণ ঠিকানা</label><input class="field" id="oAddr" required placeholder="বাসা/হোল্ডিং, রোড, এলাকা">
+      <label class="fl">পেমেন্ট</label>
+      <div class="radio mb">${payOpts.map(([k, l], i) => `<label><input type="radio" name="pay" value="${k}" ${i === 0 ? 'checked' : ''}>${l}</label>`).join('')}</div>
+      <p class="kv">পণ্যের দাম: <b id="oSub">${money(p.price * p.min_order)}</b> · ডেলিভারি চার্জ: <b id="oDel"></b> · মোট: <b id="oTotal"></b></p>
+      <div class="pagerow mt">
+        <button class="btn primary" type="submit" style="padding:12px 26px">অর্ডার নিশ্চিত করুন</button>
+        <a class="btn wa" target="_blank" rel="noopener" href="${waLink('আসসালামু আলাইকুম, আমি এই পণ্যটি অর্ডার করতে চাই:\n' + p.title + '\nদাম: ' + money(p.price))}">WhatsApp-এ অর্ডার করুন</a>
       </div>
+    </form>`}
+  </div>`;
+  window._orderItem = p; updTotal(p.price);
+}
+function updTotal(price) {
+  const p = window._orderItem; if (!p) return;
+  const q = Number(document.getElementById('oQty')?.value || p.min_order);
+  const dist = document.getElementById('oDist')?.value || 'ঢাকা';
+  const del = p.delivery_available ? (dist === 'ঢাকা' ? Number(S.settings.delivery_inside || 60) : Number(S.settings.delivery_outside || 120)) : 0;
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  set('oSub', money(price * q)); set('oDel', money(del)); set('oTotal', money(price * q + del));
+}
+async function submitOrder(e, id) {
+  e.preventDefault();
+  const msg = document.getElementById('ordMsg');
+  const body = {listing_id: id, quantity: Number(document.getElementById('oQty').value), buyer_name: document.getElementById('oName').value.trim(),
+    buyer_phone: document.getElementById('oPhone').value.trim(), address: document.getElementById('oAddr').value.trim(),
+    district: document.getElementById('oDist').value, payment_method: document.querySelector('input[name=pay]:checked').value};
+  try {
+    const r = await api('order', {body});
+    msg.innerHTML = `<div class="ok">✅ অর্ডার সফল হয়েছে! অর্ডার নম্বর: <b>${esc(r.id)}</b> · মোট: <b>${money(r.total)}</b><br>বিক্রেতা শিগগিরই আপনার ফোনে যোগাযোগ করবেন।</div>`;
+    e.target.reset();
+  } catch(err) { msg.innerHTML = `<div class="err">${esc(err.message)}</div>`; }
+}
 
-      <!-- ================= INFO VIEW ================= -->
-      <div class="view" id="view-info">
-        <div class="wrap">
-          <div class="page-head">
-            <button type="button" class="back-btn" data-nav="home">← হোমে ফিরুন</button>
-          </div>
-          <div class="info-card" id="infoBox"></div>
-        </div>
+function viewLogin() {
+  app.innerHTML = `<div class="card" style="max-width:440px;margin:26px auto">
+    <h2 class="mb">লগইন</h2><div id="lm"></div>
+    <form onsubmit="doLogin(event)">
+      <label class="fl">মোবাইল নম্বর</label><input class="field" id="lPhone" required placeholder="01XXXXXXXXX">
+      <label class="fl">পাসওয়ার্ড</label><input class="field" id="lPass" type="password" required>
+      <button class="btn primary" style="width:100%;padding:12px">লগইন করুন</button>
+    </form>
+    <p class="mt small mut">অ্যাকাউন্ট নেই? <a href="#/signup" style="color:var(--brand);font-weight:700">সাইন আপ করুন</a></p></div>`;
+}
+async function doLogin(e) {
+  e.preventDefault();
+  try { const r = await api('login', {body: {phone: document.getElementById('lPhone').value, password: document.getElementById('lPass').value}});
+    localStorage.setItem('hb_token', r.token); S.user = r.user; renderAuth(); location.hash = '#/account'; render();
+  } catch(err) { document.getElementById('lm').innerHTML = `<div class="err">${esc(err.message)}</div>`; }
+}
+function viewSignup() {
+  app.innerHTML = `<div class="card" style="max-width:480px;margin:26px auto">
+    <h2 class="mb">সাইন আপ — নতুন অ্যাকাউন্ট</h2><div id="sm"></div>
+    <form onsubmit="doSignup(event)">
+      <label class="fl">আপনার নাম</label><input class="field" id="sName" required>
+      <label class="fl">মোবাইল নম্বর</label><input class="field" id="sPhone" required placeholder="01XXXXXXXXX">
+      <label class="fl">ইমেইল (ঐচ্ছিক)</label><input class="field" id="sEmail" type="email">
+      <div class="grid2"><div><label class="fl">জেলা</label><select class="field" id="sDist">${DISTRICTS.map(d => `<option>${d}</option>`).join('')}</select></div>
+      <div><label class="fl">অ্যাকাউন্টের ধরন</label><select class="field" id="sRole"><option value="buyer">ক্রেতা</option><option value="seller">বিক্রেতা</option></select></div></div>
+      <label class="fl">পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label><input class="field" id="sPass" type="password" required minlength="6">
+      <button class="btn primary" style="width:100%;padding:12px">অ্যাকাউন্ট খুলুন</button>
+    </form>
+    <p class="mt small mut">আগে থেকেই অ্যাকাউন্ট আছে? <a href="#/login" style="color:var(--brand);font-weight:700">লগইন করুন</a></p></div>`;
+}
+async function doSignup(e) {
+  e.preventDefault();
+  try { const r = await api('register', {body: {name: document.getElementById('sName').value, phone: document.getElementById('sPhone').value, email: document.getElementById('sEmail').value, district: document.getElementById('sDist').value, role: document.getElementById('sRole').value, password: document.getElementById('sPass').value}});
+    localStorage.setItem('hb_token', r.token); S.user = r.user; renderAuth(); location.hash = '#/account'; render();
+  } catch(err) { document.getElementById('sm').innerHTML = `<div class="err">${esc(err.message)}</div>`; }
+}
+
+async function viewAccount() {
+  if (!S.user) { location.hash = '#/login'; return; }
+  const u = S.user;
+  app.innerHTML = `<h2 class="ptitle">আমার অ্যাকাউন্ট</h2>
+    <div class="card"><p class="kv">নাম: <b>${esc(u.name)}</b> ${u.verified ? '<span class="verified">✓ যাচাইকৃত</span>' : ''}</p>
+    <p class="kv">ফোন: <b>${esc(u.phone)}</b> · ইমেইল: <b>${esc(u.email || '—')}</b></p>
+    <p class="kv">জেলা: <b>${esc(u.district || '—')}</b> · অ্যাকাউন্ট: <b>${u.role === 'seller' ? 'বিক্রেতা' : 'ক্রেতা'}</b></p></div>
+    <div class="card"><h3 class="mb">📦 আমার অর্ডার</h3><div id="myOrders"><p class="mut">লোড হচ্ছে…</p></div></div>
+    <div class="card"><h3 class="mb">📢 আমার বিজ্ঞাপন</h3><div id="myAds"><p class="mut">লোড হচ্ছে…</p></div></div>`;
+  try { const r = await api('my_orders');
+    document.getElementById('myOrders').innerHTML = r.orders.length ? `<table><tr><th>অর্ডার</th><th>পণ্য</th><th>পরিমাণ</th><th>মোট</th><th>অবস্থা</th></tr>${r.orders.map(o => `<tr><td>${esc(o.id)}<br><span class="mut small">${esc(o.created_at)}</span></td><td>${esc(o.listing_title || o.listing_id)}</td><td>${bn(o.qty)}</td><td>${money(o.total)}</td><td>${STATUS_BN[o.status] || o.status}</td></tr>`).join('')}</table>` : '<p class="mut">এখনো কোনো অর্ডার করেননি।</p>';
+  } catch(e) { document.getElementById('myOrders').innerHTML = '<p class="mut">লোড করা যায়নি।</p>'; }
+  try { const r = await api('my_listings');
+    document.getElementById('myAds').innerHTML = r.items.length ? r.items.map(p => `<p style="padding:5px 0;border-bottom:1px solid var(--line)"><a href="#/product/${p.id}"><b>${esc(p.title)}</b></a> — ${money(p.price)} · স্টক ${bn(p.quantity)}</p>`).join('') : '<p class="mut">এখনো কোনো বিজ্ঞাপন দেননি। <a href="#/post" style="color:var(--brand);font-weight:700">বিজ্ঞাপন দিন</a></p>';
+  } catch(e) {}
+}
+
+function viewPost() {
+  if (!S.user) { app.innerHTML = `<div class="card" style="max-width:440px;margin:26px auto"><h3 class="mb">বিজ্ঞাপন দিতে আগে লগইন করুন</h3><a class="btn primary" href="#/login">লগইন</a> <a class="btn" href="#/signup">সাইন আপ</a></div>`; return; }
+  app.innerHTML = `<div class="card" style="max-width:640px;margin:22px auto">
+    <h2 class="mb">📢 নতুন বিজ্ঞাপন দিন</h2><div id="pm"></div>
+    <form onsubmit="doPost(event)">
+      <label class="fl">পণ্যের নাম</label><input class="field" id="pTitle" required>
+      <div class="grid2"><div><label class="fl">ক্যাটাগরি</label><select class="field" id="pCat" onchange="postSubFill()">${S.categories.map(c => `<option value="${c.cat_key}">${esc(c.label)}</option>`).join('')}</select></div>
+      <div><label class="fl">সাব-ক্যাটাগরি</label><select class="field" id="pSub"></select></div></div>
+      <div class="grid2"><div><label class="fl">দাম (টাকা)</label><input class="field" id="pPrice" type="number" min="1" required></div>
+      <div><label class="fl">একক</label><input class="field" id="pUnit" value="piece"></div></div>
+      <div class="grid2"><div><label class="fl">পরিমাণ/স্টক</label><input class="field" id="pQty" type="number" min="0" value="1" required></div>
+      <div><label class="fl">সর্বনিম্ন অর্ডার</label><input class="field" id="pMin" type="number" min="1" value="1" required></div></div>
+      <div class="grid2"><div><label class="fl">জেলা</label><select class="field" id="pDist">${DISTRICTS.map(d => `<option ${S.user.district === d ? 'selected' : ''}>${d}</option>`).join('')}</select></div>
+      <div><label class="fl">উপজেলা/এলাকা</label><input class="field" id="pUpa"></div></div>
+      <div class="grid2"><div><label class="fl">বিক্রির ধরন</label><select class="field" id="pSale"><option value="both">খুচরা ও পাইকারি</option><option value="retail">খুচরা</option><option value="wholesale">পাইকারি</option></select></div>
+      <div><label class="fl">যোগাযোগের ফোন</label><input class="field" id="pPhone" value="${esc(S.user.phone)}"></div></div>
+      <label class="fl">দোকান/ব্যবসার নাম (ঐচ্ছিক)</label><input class="field" id="pBiz">
+      <label class="fl">বিবরণ</label><textarea class="field" id="pDesc" rows="4"></textarea>
+      <label style="display:block;margin-bottom:8px"><input type="checkbox" id="pNeg"> দাম আলোচনা সাপেক্ষ</label>
+      <label style="display:block;margin-bottom:14px"><input type="checkbox" id="pDel" checked> ডেলিভারি সুবিধা আছে</label>
+      <button class="btn primary" style="width:100%;padding:12px">বিজ্ঞাপন প্রকাশ করুন</button>
+    </form></div>`;
+  postSubFill();
+}
+function postSubFill() {
+  const c = catOf(document.getElementById('pCat').value);
+  document.getElementById('pSub').innerHTML = (c?.subs || []).map(s2 => `<option value="${s2.key}">${esc(s2.label)}</option>`).join('');
+}
+async function doPost(e) {
+  e.preventDefault();
+  try { const r = await api('create_listing', {body: {title: document.getElementById('pTitle').value, category: document.getElementById('pCat').value, subcategory: document.getElementById('pSub').value, price: Number(document.getElementById('pPrice').value), unit: document.getElementById('pUnit').value, quantity: Number(document.getElementById('pQty').value), min_order: Number(document.getElementById('pMin').value), district: document.getElementById('pDist').value, upazila: document.getElementById('pUpa').value, sale_type: document.getElementById('pSale').value, phone: document.getElementById('pPhone').value, business_name: document.getElementById('pBiz').value, description: document.getElementById('pDesc').value, negotiable: document.getElementById('pNeg').checked, delivery_available: document.getElementById('pDel').checked}});
+    document.getElementById('pm').innerHTML = '<div class="ok">✅ বিজ্ঞাপন প্রকাশ হয়েছে!</div>'; e.target.reset(); postSubFill();
+  } catch(err) { document.getElementById('pm').innerHTML = `<div class="err">${esc(err.message)}</div>`; }
+}
+
+const PAGES = {
+  'help': ['সাহায্য কেন্দ্র', `<h3>কীভাবে অর্ডার করব?</h3><p>পণ্যের পেজে গিয়ে "অর্ডার করুন" ফর্মটি পূরণ করুন, অথবা WhatsApp বাটনে ক্লিক করে সরাসরি বিক্রেতাকে মেসেজ করুন।</p><h3>পেমেন্ট কীভাবে করব?</h3><p>ক্যাশ অন ডেলিভারিতে পণ্য হাতে পেয়ে টাকা দিন। বিকাশ/নগদ/রকেটে পেমেন্টের জন্য বিক্রেতার সঙ্গে কথা বলে নিন।</p><h3>ডেলিভারিতে কতদিন লাগে?</h3><p>ঢাকার ভিতরে সাধারণত ২৪–৪৮ ঘণ্টা, ঢাকার বাইরে ২–৪ দিন।</p><h3>সমস্যা হলে?</h3><p>যোগাযোগ পেজ থেকে আমাদের মেসেজ করুন অথবা WhatsApp Help বাটনে ক্লিক করুন।</p>`],
+  'how-to-buy': ['কীভাবে কিনবেন', `<p>১. পছন্দের পণ্য খুঁজুন — সার্চ বা ক্যাটাগরি দিয়ে।</p><p>২. পণ্যের পেজে দাম, স্টক ও বিক্রেতার তথ্য যাচাই করুন।</p><p>৩. "অর্ডার করুন" ফর্মে নাম, ফোন, ঠিকানা দিয়ে অর্ডার নিশ্চিত করুন — অথবা WhatsApp-এ অর্ডার করুন।</p><p>৪. বিক্রেতা ফোনে যোগাযোগ করে ডেলিভারি নিশ্চিত করবেন।</p><p>৫. পণ্য হাতে পেয়ে ক্যাশ অন ডেলিভারিতে মূল্য পরিশোধ করুন।</p>`],
+  'refund': ['রিফান্ড ও রিটার্ন নীতি', `<p>ভুল বা ত্রুটিপূর্ণ পণ্য পৌঁছালে ডেলিভারির সময়ই ডেলিভারি ম্যানকে জানান।</p><p>পণ্যে কারিগরি ত্রুটি থাকলে ৪৮ ঘণ্টার মধ্যে বিক্রেতার সঙ্গে যোগাযোগ করুন — বদলি বা রিফান্ডের ব্যবস্থা বিক্রেতা করবেন।</p><p>অর্ডার বাতিল করতে চাইলে পণ্য পাঠানোর আগেই বিক্রেতাকে ফোন করুন।</p>`],
+  'delivery': ['ডেলিভারি তথ্য', `<p>ঢাকার ভিতরে ডেলিভারি চার্জ প্রযোজ্য হারে, ঢাকার বাইরে জেলা অনুযায়ী। চার্জ অর্ডারের সময়ই দেখানো হয়।</p><p>যেসব পণ্যে "ডেলিভারি আছে" লেখা নেই, সেগুলো বিক্রেতার ঠিকানা থেকে নিজে সংগ্রহ করতে হবে।</p><p>পাইকারি/বড় পণ্যের ডেলিভারি শর্ত বিক্রেতার সঙ্গে আলোচনা করে নিন।</p>`],
+  'terms': ['শর্তাবলি', `<p>হাটবাজার একটি অনলাইন মার্কেটপ্লেস — বিক্রেতারা নিজেদের পণ্যের বিজ্ঞাপন দেন, ক্রেতারা সরাসরি তাদের কাছ থেকে কেনেন।</p><p>পণ্যের মান, দাম ও ডেলিভারির দায়িত্ব সংশ্লিষ্ট বিক্রেতার। কেনার আগে বিক্রেতার তথ্য যাচাই করুন।</p><p>মিথ্যা বিজ্ঞাপন বা প্রতারণার অভিযোগ পেলে অ্যাকাউন্ট বন্ধ করা হবে।</p>`],
+  'privacy': ['গোপনীয়তা নীতি', `<p>আপনার নাম, ফোন নম্বর ও ঠিকানা শুধু অর্ডার সম্পন্ন করার জন্য ব্যবহার করা হয়।</p><p>আপনার তথ্য তৃতীয় পক্ষের কাছে বিক্রি করা হয় না। অর্ডারের প্রয়োজনে সংশ্লিষ্ট বিক্রেতা আপনার নাম, ফোন ও ঠিকানা দেখতে পান।</p>`],
+  'about': ['আমাদের সম্পর্কে', `<p>হাটবাজার বাংলাদেশের ক্রেতা ও বিক্রেতাদের জন্য একটি সহজ অনলাইন বাজার — খুচরা ও পাইকারি, দুই ধরনের কেনাবেচাই এখানে হয়।</p><p>ছোট ব্যবসায়ী থেকে কৃষক — যে কেউ বিনামূল্যে বিজ্ঞাপন দিয়ে নিজের পণ্য সারা দেশের ক্রেতার কাছে পৌঁছে দিতে পারেন।</p>`],
+  'seller-help': ['সেলার সাপোর্ট', `<h3>বিজ্ঞাপন দেবেন কীভাবে?</h3><p>সাইন আপ করে "+ বিজ্ঞাপন দিন" বাটনে ক্লিক করুন, পণ্যের তথ্য দিয়ে প্রকাশ করুন — সম্পূর্ণ ফ্রি।</p><h3>যাচাইকৃত (Verified) ব্যাজ</h3><p>নিয়মিত ও বিশ্বস্ত বিক্রেতাদের অ্যাকাউন্টে যাচাইকৃত ব্যাজ দেওয়া হয়। ব্যাজের জন্য যোগাযোগ পেজে মেসেজ করুন।</p><h3>অর্ডার পেলে?</h3><p>ক্রেতার ফোনে যোগাযোগ করে ডেলিভারি নিশ্চিত করুন।</p>`],
+  'payment-info': ['পেমেন্ট ও অর্ডার তথ্য', `<p>অর্ডারের সময় পেমেন্ট পদ্ধতি বেছে নেওয়া যায়: ক্যাশ অন ডেলিভারি, বিকাশ, নগদ বা রকেট।</p><p>মোবাইল ব্যাংকিংয়ে পেমেন্টের ক্ষেত্রে বিক্রেতা তার নম্বর দেবেন — পেমেন্টের আগে নম্বরটি যাচাই করে নিন।</p><p>অর্ডারের অবস্থা "আমার অ্যাকাউন্ট" পেজে দেখা যায়।</p>`]
+};
+function viewPage(slug) {
+  if (slug === 'contact') return viewContact();
+  const pg = PAGES[slug] || ['পেজ', '<p>শীঘ্রই আসছে।</p>'];
+  app.innerHTML = `<div class="card prose" style="max-width:760px;margin:22px auto"><h2 class="mb">${pg[0]}</h2>${pg[1]}</div>`;
+}
+function viewContact() {
+  const st = S.settings;
+  app.innerHTML = `<div class="card prose" style="max-width:640px;margin:22px auto">
+    <h2 class="mb">যোগাযোগ</h2>
+    ${st.owner_name ? `<p class="kv">নাম: <b>${esc(st.owner_name)}</b></p>` : ''}
+    ${st.owner_email ? `<p class="kv">ইমেইল: <b>${esc(st.owner_email)}</b></p>` : ''}
+    ${st.owner_phone ? `<p class="kv">ফোন: <b>${esc(st.owner_phone)}</b></p>` : ''}
+    <p class="kv">সাপোর্ট ফোন: <b>${esc(st.support_phone || '')}</b> · WhatsApp: <a href="${waLink('আসসালামু আলাইকুম, সাহায্য দরকার।')}" target="_blank" rel="noopener" style="color:var(--brand);font-weight:700">মেসেজ করুন</a></p>
+    <h3>মেসেজ পাঠান</h3><div id="cm"></div>
+    <form onsubmit="doContact(event)">
+      <label class="fl">আপনার নাম</label><input class="field" id="cName" required>
+      <label class="fl">মোবাইল নম্বর</label><input class="field" id="cPhone">
+      <label class="fl">বার্তা</label><textarea class="field" id="cMsg" rows="4" required></textarea>
+      <button class="btn primary">পাঠান</button>
+    </form></div>`;
+}
+async function doContact(e) {
+  e.preventDefault();
+  try { await api('contact', {body: {name: document.getElementById('cName').value, phone: document.getElementById('cPhone').value, message: document.getElementById('cMsg').value}});
+    document.getElementById('cm').innerHTML = '<div class="ok">✅ বার্তা পাঠানো হয়েছে। ধন্যবাদ!</div>'; e.target.reset();
+  } catch(err) { document.getElementById('cm').innerHTML = `<div class="err">${esc(err.message)}</div>`; }
+}
+
+// ---------------- Owner panel ----------------
+let ownerTab = 'dash';
+async function viewOwner() {
+  if (!otoken()) {
+    let has = true;
+    try { has = (await api('owner_status')).has_password; } catch(e) {}
+    app.innerHTML = `<div class="card" style="max-width:420px;margin:26px auto">
+      <h2 class="mb">🔐 মালিক প্যানেল</h2><div id="om"></div>
+      <p class="small mut mb">${has ? 'মালিকের পাসওয়ার্ড দিয়ে প্রবেশ করুন।' : 'প্রথমবার — মালিকের পাসওয়ার্ড সেট করুন (কমপক্ষে ৬ অক্ষর)।'}</p>
+      <form onsubmit="doOwnerLogin(event)"><input class="field" id="oPass" type="password" required placeholder="পাসওয়ার্ড">
+      <button class="btn primary" style="width:100%;padding:12px">${has ? 'প্রবেশ করুন' : 'পাসওয়ার্ড সেট করে প্রবেশ করুন'}</button></form></div>`;
+    return;
+  }
+  const tabs = [['dash','📊 ড্যাশবোর্ড'],['orders','📦 অর্ডার'],['listings','🏷️ পণ্য'],['messages','✉️ মেসেজ'],['users','👥 ব্যবহারকারী'],['cats','🗂️ ক্যাটাগরি'],['look','🎨 চেহারা ও তথ্য'],['settings','⚙️ সেটিংস']];
+  app.innerHTML = `<h2 class="ptitle">মালিক প্যানেল <button class="btn small" style="float:right" onclick="ownerLogout()">লগআউট</button></h2>
+    <div class="tabs">${tabs.map(([k, l]) => `<button class="tab ${ownerTab === k ? 'on' : ''}" onclick="setOwnerTab('${k}')">${l}</button>`).join('')}</div>
+    <div id="ownerBody"><p class="mut">লোড হচ্ছে…</p></div>`;
+  const b = document.getElementById('ownerBody');
+  try {
+    if (ownerTab === 'dash') {
+      const s = await api('owner_stats', {owner: true});
+      b.innerHTML = `<div class="stat">
+        <div class="scard"><b>${money(s.sales_today)}</b><span>আজকের বিক্রি</span></div>
+        <div class="scard"><b>${money(s.sales_7d)}</b><span>৭ দিনের বিক্রি</span></div>
+        <div class="scard"><b>${money(s.sales_total)}</b><span>মোট বিক্রি</span></div>
+        <div class="scard"><b>${bn(s.orders)}</b><span>মোট অর্ডার (${bn(s.pending_orders)} অপেক্ষমাণ)</span></div>
+        <div class="scard"><b>${bn(s.listings)}</b><span>লাইভ পণ্য</span></div>
+        <div class="scard"><b>${bn(s.users)}</b><span>ব্যবহারকারী</span></div>
+        <div class="scard"><b>${bn(s.messages)}</b><span>মেসেজ</span></div></div>
+        ${s.low_stock.length ? `<div class="card"><h3 class="mb">⚠️ স্টক কম (৫-এর নিচে)</h3>${s.low_stock.map(l => `<p style="padding:4px 0;border-bottom:1px solid var(--line)">${esc(l.title)} — স্টক <b>${bn(l.quantity)}</b></p>`).join('')}</div>` : ''}
+        <div class="card"><h3 class="mb">সাম্প্রতিক অর্ডার</h3>${orderTable(s.recent_orders)}</div>`;
+    } else if (ownerTab === 'orders') {
+      const r = await api('owner_orders', {owner: true});
+      b.innerHTML = `<div class="card">${orderTable(r.orders, true)}</div>`;
+    } else if (ownerTab === 'listings') {
+      const r = await api('owner_listings', {owner: true});
+      b.innerHTML = `<div class="card">${r.items.length ? r.items.map(p => `<p style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="#/product/${p.id}"><b>${esc(p.title)}</b></a> — ${money(p.price)} · স্টক ${bn(p.quantity)} · ${esc(p.seller_name)} <button class="btn small danger" style="float:right" onclick="ownerDelListing('${p.id}')">মুছুন</button></p>`).join('') : '<p class="mut">কোনো পণ্য নেই।</p>'}</div>`;
+    } else if (ownerTab === 'messages') {
+      const r = await api('owner_messages', {owner: true});
+      b.innerHTML = `<div class="card">${r.messages.length ? r.messages.map(m => `<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${esc(m.name)}</b> <span class="mut small">${esc(m.phone)} · ${esc(m.created_at)}</span><p>${esc(m.message)}</p></div>`).join('') : '<p class="mut">কোনো মেসেজ নেই।</p>'}</div>`;
+    } else if (ownerTab === 'users') {
+      const r = await api('owner_users', {owner: true});
+      b.innerHTML = `<div class="card">${r.users.length ? `<table><tr><th>নাম</th><th>ফোন</th><th>জেলা</th><th>ধরন</th><th>যাচাইকৃত</th></tr>${r.users.map(x => `<tr><td>${esc(x.name)}</td><td>${esc(x.phone)}</td><td>${esc(x.district)}</td><td>${x.role === 'seller' ? 'বিক্রেতা' : 'ক্রেতা'}</td><td><button class="btn small ${x.verified ? '' : 'primary'}" onclick="ownerVerify(${x.id}, ${x.verified ? 0 : 1})">${x.verified ? '✓ আছে — তুলে নিন' : 'ব্যাজ দিন'}</button></td></tr>`).join('')}</table>` : '<p class="mut">কোনো ব্যবহারকারী নেই।</p>'}</div>`;
+    } else if (ownerTab === 'cats') { ownerCatsUI(b); }
+    else if (ownerTab === 'look') { ownerLookUI(b); }
+    else if (ownerTab === 'settings') { ownerSettingsUI(b); }
+  } catch(e) {
+    if (String(e.message).includes('owner_login')) { localStorage.removeItem('hb_owner'); viewOwner(); }
+    else b.innerHTML = `<div class="err">${esc(e.message)}</div>`;
+  }
+}
+function orderTable(orders, editable = false) {
+  if (!orders || !orders.length) return '<p class="mut">কোনো অর্ডার নেই।</p>';
+  return `<table><tr><th>অর্ডার</th><th>পণ্য</th><th>ক্রেতা</th><th>মোট</th><th>পেমেন্ট</th><th>অবস্থা</th></tr>${orders.map(o => `<tr>
+    <td>${esc(o.id)}<br><span class="mut small">${esc(o.created_at)}</span></td>
+    <td>${esc(o.listing_title || o.listing_id)} × ${bn(o.qty)}</td>
+    <td>${esc(o.buyer_name)}<br><span class="small">${esc(o.buyer_phone)}</span><br><span class="mut small">${esc(o.address)}, ${esc(o.district)}</span></td>
+    <td>${money(o.total)}</td><td>${esc(o.payment_method)}</td>
+    <td>${editable ? `<select onchange="ownerOrderStatus('${o.id}', this.value)">${Object.keys(STATUS_BN).map(k => `<option value="${k}" ${o.status === k ? 'selected' : ''}>${STATUS_BN[k]}</option>`).join('')}</select>` : (STATUS_BN[o.status] || o.status)}</td></tr>`).join('')}</table>`;
+}
+async function doOwnerLogin(e) {
+  e.preventDefault();
+  try { const r = await api('owner_login', {body: {password: document.getElementById('oPass').value}});
+    localStorage.setItem('hb_owner', r.token); viewOwner();
+  } catch(err) { document.getElementById('om').innerHTML = `<div class="err">${esc(err.message)}</div>`; }
+}
+function ownerLogout() { localStorage.removeItem('hb_owner'); location.hash = '#/'; render(); }
+function setOwnerTab(t) { ownerTab = t; viewOwner(); }
+async function ownerOrderStatus(id, status) { try { await api('owner_order_status', {owner: true, body: {id, status}}); viewOwner(); } catch(e) { alert(e.message); } }
+async function ownerDelListing(id) { if (!confirm('পণ্যটি মুছে ফেলবেন?')) return; try { await api('owner_delete_listing', {owner: true, body: {id}}); viewOwner(); } catch(e) { alert(e.message); } }
+async function ownerVerify(id, v) { try { await api('owner_verify_user', {owner: true, body: {id, verified: v}}); viewOwner(); } catch(e) { alert(e.message); } }
+
+let catEdit = null;
+function ownerCatsUI(b) {
+  catEdit = JSON.parse(JSON.stringify(S.categories)).map(c => ({key: c.cat_key, old_key: c.cat_key, label: c.label, icon: c.icon, subs: (c.subs || []).map(s2 => ({key: s2.key, old_key: s2.key, label: s2.label}))}));
+  const draw = () => {
+    b.innerHTML = `<div class="card"><h3 class="mb">ক্যাটাগরি ও সাব-ক্যাটাগরি</h3><p class="small mut mb">নাম বদলালে শুধু বাংলা নাম বদলায়। Key বদলালে ওই key-র সব পণ্য অটো নতুন key-তে চলে যাবে।</p><div id="catMsg"></div>
+    ${catEdit.map((c, i) => `<div style="border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px">
+      <div class="grid2">
+        <div><label class="fl">বাংলা নাম</label><input class="field" value="${esc(c.label)}" onchange="catEdit[${i}].label=this.value"></div>
+        <div><label class="fl">আইকন (emoji)</label><input class="field" value="${esc(c.icon)}" onchange="catEdit[${i}].icon=this.value"></div>
       </div>
+      <div class="grid2"><div><label class="fl">Key (English, ছোট হাতের)</label><input class="field" value="${esc(c.key)}" onchange="catEdit[${i}].key=this.value.trim()"></div>
+      <div style="display:flex;align-items:flex-end;padding-bottom:11px"><button class="btn small danger" onclick="catEdit.splice(${i},1);ownerCatsRefresh()">ক্যাটাগরি মুছুন</button></div></div>
+      <div>${c.subs.map((s2, j) => `<div class="grid2" style="margin-bottom:6px"><input class="field" style="margin:0" value="${esc(s2.label)}" onchange="catEdit[${i}].subs[${j}].label=this.value"><div style="display:flex;gap:6px"><input class="field" style="margin:0" value="${esc(s2.key)}" onchange="catEdit[${i}].subs[${j}].key=this.value.trim()"><button class="btn small danger" onclick="catEdit[${i}].subs.splice(${j},1);ownerCatsRefresh()">✕</button></div></div>`).join('')}</div>
+      <button class="btn small" onclick="catEdit[${i}].subs.push({key:'',old_key:'',label:''});ownerCatsRefresh()">+ সাব-ক্যাটাগরি</button>
+    </div>`).join('')}
+    <div class="pagerow"><button class="btn" onclick="catEdit.push({key:'',old_key:'',label:'',icon:'🛍️',subs:[]});ownerCatsRefresh()">+ নতুন ক্যাটাগরি</button>
+    <button class="btn primary" onclick="ownerCatsSave()">সব সেভ করুন</button></div></div>`;
+  };
+  window._catDraw = draw; draw();
+}
+function ownerCatsRefresh() { window._catDraw(); }
+async function ownerCatsSave() {
+  const keys = catEdit.map(c => c.key);
+  if (keys.some(k => !/^[a-z0-9-]+$/.test(k)) || new Set(keys).size !== keys.length) { alert('প্রতিটি ক্যাটাগরির key ছোট হাতের English/সংখ্যা/হাইফেন হতে হবে এবং একই key দুইবার থাকা যাবে না।'); return; }
+  try { await api('owner_categories_save', {owner: true, body: {categories: catEdit}});
+    const boot = await api('bootstrap'); S.categories = boot.categories;
+    document.getElementById('catMsg').innerHTML = '<div class="ok">✅ ক্যাটাগরি সেভ হয়েছে।</div>';
+  } catch(e) { alert(e.message); }
+}
 
-      <!-- ================= CONTACT VIEW ================= -->
-      <div class="view" id="view-contact">
-        <div class="wrap">
-          <div class="page-head">
-            <button type="button" class="back-btn" data-nav="home">← হোমে ফিরুন</button>
-          </div>
-          <div class="info-card">
-            <h2>যোগাযোগ করুন</h2>
-            <p class="intro">প্রশ্ন বা সহায়তার জন্য আমাদের সাথে সরাসরি যোগাযোগ করুন। অর্ডার, পণ্য বা বিক্রেতা হওয়া নিয়ে যেকোনো জিজ্ঞাসায় আমরা পাশে আছি।</p>
-            <div class="contact-rows">
-              <div class="contact-row">
-                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>
-                <div><b>মালিক / ব্যবসার নাম</b><span class="val">HaatBazar কর্তৃপক্ষ</span></div>
-              </div>
-              <div class="contact-row">
-                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>
-                <div><b>ফোন (কল করুন)</b><a href="tel:+8801629152161">01629152161</a></div>
-              </div>
-              <div class="contact-row">
-                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
-                <div><b>সহায়তার সময়</b><span class="val">সকাল ৯টা – রাত ১০টা (প্রতিদিন)</span></div>
-              </div>
-            </div>
-            <div class="action-row">
-              <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/+8801629152161?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20HaatBazar%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%AF%E0%A7%8D%E0%A6%AF%20%E0%A6%9A%E0%A6%BE%E0%A6%87%E0%A5%A4">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.1-2.3-.1a10.6 10.6 0 0 1-5.4-4.7c-.6-1-.6-1.9-.5-2 .1-.2.6-1.5.9-1.6h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c.7 1.2 1.5 2 2.6 2.6l.5-.5.6-.4c.2-.1.4-.1.6 0l2 .9c.5.3.5.5.4.7Z"/></svg>
-                WhatsApp-এ লিখুন
-              </a>
-              <a class="btn btn-outline" href="tel:+8801629152161">কল করুন: +8801629152161</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+function ownerLookUI(b) {
+  const st = S.settings;
+  const presets = ['#0f7a3d', '#1d4ed8', '#7c3aed', '#ea580c', '#0f766e', '#b91c1c', '#111827'];
+  b.innerHTML = `<div class="card"><h3 class="mb">🎨 চেহারা ও তথ্য</h3><div id="lookMsg"></div>
+    <div class="grid2"><div><label class="fl">সাইটের নাম</label><input class="field" id="lk_name" value="${esc(st.site_name || '')}"></div>
+    <div><label class="fl">ট্যাগলাইন</label><input class="field" id="lk_tag" value="${esc(st.tagline || '')}"></div></div>
+    <label class="fl">হিরো শিরোনাম (বড় লেখা)</label><input class="field" id="lk_hero" value="${esc(st.hero_title || '')}">
+    <label class="fl">হিরো বর্ণনা</label><input class="field" id="lk_herosub" value="${esc(st.hero_sub || '')}">
+    <label class="fl">ঘোষণা বার (উপরের কমলা বার)</label><input class="field" id="lk_ann" value="${esc(st.announcement || '')}">
+    <label class="fl">থিম রং</label>
+    <div class="pagerow mb">${presets.map(c => `<button type="button" onclick="document.getElementById('lk_theme').value='${c}'" style="width:34px;height:34px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #ccc;background:${c}"></button>`).join('')}
+    <input type="color" id="lk_theme" value="${esc(st.theme || '#0f7a3d')}" style="width:60px;height:38px"></div>
+    <label class="fl">ফুটারের "সম্পর্কে" লেখা</label><textarea class="field" id="lk_about" rows="3">${esc(st.footer_about || '')}</textarea>
+    <label class="fl">কপিরাইট লাইন</label><input class="field" id="lk_copy" value="${esc(st.copyright || '')}">
+    <button class="btn primary" onclick="ownerLookSave()">সেভ করুন</button></div>`;
+}
+async function ownerLookSave() {
+  const g = id => document.getElementById(id).value;
+  try { await api('owner_settings_save', {owner: true, body: {site_name: g('lk_name'), tagline: g('lk_tag'), hero_title: g('lk_hero'), hero_sub: g('lk_herosub'), announcement: g('lk_ann'), theme: g('lk_theme'), footer_about: g('lk_about'), copyright: g('lk_copy')}});
+    const boot = await api('bootstrap'); S.settings = boot.settings; applySettings();
+    document.getElementById('lookMsg').innerHTML = '<div class="ok">✅ সেভ হয়েছে — সাইটে এখনই দেখা যাচ্ছে।</div>';
+  } catch(e) { alert(e.message); }
+}
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="site">
-      <div class="wrap">
-        <div class="foot-grid">
-          <div>
-            <h4>গ্রাহক সেবা</h4>
-            <ul>
-              <li><button type="button" class="foot-link" data-info="help">সাহায্য কেন্দ্র</button></li>
-              <li><button type="button" class="foot-link" data-info="how-to-buy">কীভাবে কিনবেন</button></li>
-              <li><button type="button" class="foot-link" data-info="refund">রিফান্ড ও রিটার্ন নীতি</button></li>
-              <li><button type="button" class="foot-link" data-info="delivery">ডেলিভারি তথ্য</button></li>
-              <li><button type="button" class="foot-link" data-info="terms">শর্তাবলী</button></li>
-            </ul>
-          </div>
-          <div>
-            <h4>মার্কেট</h4>
-            <ul>
-              <li><button type="button" class="foot-link" data-info="about">আমাদের সম্পর্কে</button></li>
-              <li><button type="button" class="foot-link" data-nav="contact">যোগাযোগ করুন</button></li>
-              <li><button type="button" class="foot-link" data-info="privacy">গোপনীয়তা নীতি</button></li>
-              <li><button type="button" class="foot-link" data-info="terms">ব্যবহারের শর্ত</button></li>
-              <li><button type="button" class="foot-link" id="popCats">জনপ্রিয় ক্যাটাগরি</button></li>
-            </ul>
-            <div class="market-box" style="margin-top:14px">
-              <b>হাটে কেনাবেচা করুন</b>
-              <span>সারা বাংলাদেশের ক্রেতা ও বিক্রেতার অনলাইন বাজার</span>
-            </div>
-          </div>
-          <div>
-            <h4>বিক্রেতা কর্নার</h4>
-            <ul>
-              <li><button type="button" class="foot-link" data-nav="home">পণ্য দেখুন</button></li>
-              <li><button type="button" class="foot-link" data-info="post-ad">বিক্রির জন্য বিজ্ঞাপন দিন</button></li>
-              <li><button type="button" class="foot-link" data-info="seller-support">বিক্রেতা সহায়তা</button></li>
-            </ul>
-          </div>
-          <div>
-            <h4>যোগাযোগ ও তথ্য</h4>
-            <p>প্রশ্ন বা সহায়তার জন্য যোগাযোগ পেজে যান — সেখানে ফোন ও WhatsApp নম্বর পাবেন।</p>
-            <button type="button" class="btn btn-orange" data-nav="contact" style="padding:11px 22px">যোগাযোগ করুন</button>
-          </div>
-        </div>
+function ownerSettingsUI(b) {
+  const st = S.settings;
+  const tog = (k, l) => `<label style="display:block;margin-bottom:8px"><input type="checkbox" id="st_${k}" ${(st[k] ?? '1') === '1' ? 'checked' : ''}> ${l}</label>`;
+  b.innerHTML = `<div class="card"><h3 class="mb">⚙️ সেটিংস</h3><div id="setMsg"></div>
+    <div class="grid2"><div><label class="fl">WhatsApp নম্বর (দেশের কোডসহ)</label><input class="field" id="st_whatsapp" value="${esc(st.whatsapp || '')}"></div>
+    <div><label class="fl">সাপোর্ট ফোন</label><input class="field" id="st_support" value="${esc(st.support_phone || '')}"></div></div>
+    <h4 class="mb" style="margin-top:6px">মালিকের তথ্য (শুধু যোগাযোগ পেজে দেখা যাবে)</h4>
+    <div class="grid2"><div><label class="fl">মালিকের নাম</label><input class="field" id="st_oname" value="${esc(st.owner_name || '')}"></div>
+    <div><label class="fl">মালিকের ফোন</label><input class="field" id="st_ophone" value="${esc(st.owner_phone || '')}"></div></div>
+    <label class="fl">মালিকের ইমেইল</label><input class="field" id="st_oemail" value="${esc(st.owner_email || '')}">
+    <h4 class="mb" style="margin-top:6px">ডেলিভারি চার্জ (টাকা)</h4>
+    <div class="grid2"><div><label class="fl">ঢাকার ভিতরে</label><input class="field" id="st_din" type="number" value="${esc(st.delivery_inside || '60')}"></div>
+    <div><label class="fl">ঢাকার বাইরে</label><input class="field" id="st_dout" type="number" value="${esc(st.delivery_outside || '120')}"></div></div>
+    <h4 class="mb" style="margin-top:6px">পেমেন্ট পদ্ধতি</h4>
+    ${tog('pay_cod', 'ক্যাশ অন ডেলিভারি')}${tog('pay_bkash', 'বিকাশ')}${tog('pay_nagad', 'নগদ')}${tog('pay_rocket', 'রকেট')}
+    <h4 class="mb" style="margin-top:6px">অন্যান্য</h4>
+    <label style="display:block;margin-bottom:12px"><input type="checkbox" id="st_maint" ${st.maintenance === '1' ? 'checked' : ''}> রক্ষণাবেক্ষণ মোড (সাইটে "সাময়িক বন্ধ" দেখাবে)</label>
+    <button class="btn primary" onclick="ownerSettingsSave()">সেভ করুন</button>
+    <hr style="margin:20px 0;border:none;border-top:1px solid var(--line)">
+    <h4 class="mb">মালিকের পাসওয়ার্ড বদলান</h4><div id="pwMsg"></div>
+    <div class="grid2"><input class="field" id="pw_old" type="password" placeholder="পুরনো পাসওয়ার্ড"><input class="field" id="pw_new" type="password" placeholder="নতুন পাসওয়ার্ড"></div>
+    <button class="btn" onclick="ownerPwChange()">পাসওয়ার্ড বদলান</button>
+    <hr style="margin:20px 0;border:none;border-top:1px solid var(--line)">
+    <h4 class="mb">ডেটা এক্সপোর্ট</h4>
+    <button class="btn" onclick="ownerExport()">JSON ফাইল ডাউনলোড (ব্যবহারকারী, পণ্য, অর্ডার)</button></div>`;
+}
+async function ownerSettingsSave() {
+  const g = id => document.getElementById(id).value; const c = id => document.getElementById(id).checked ? '1' : '0';
+  try { await api('owner_settings_save', {owner: true, body: {whatsapp: g('st_whatsapp'), support_phone: g('st_support'), owner_name: g('st_oname'), owner_phone: g('st_ophone'), owner_email: g('st_oemail'), delivery_inside: g('st_din'), delivery_outside: g('st_dout'), pay_cod: c('st_pay_cod'), pay_bkash: c('st_pay_bkash'), pay_nagad: c('st_pay_nagad'), pay_rocket: c('st_pay_rocket'), maintenance: c('st_maint')}});
+    const boot = await api('bootstrap'); S.settings = boot.settings; applySettings();
+    document.getElementById('setMsg').innerHTML = '<div class="ok">✅ সেটিংস সেভ হয়েছে।</div>';
+  } catch(e) { alert(e.message); }
+}
+async function ownerPwChange() {
+  try { await api('owner_change_password', {owner: true, body: {old: document.getElementById('pw_old').value, new: document.getElementById('pw_new').value}});
+    document.getElementById('pwMsg').innerHTML = '<div class="ok">✅ পাসওয়ার্ড বদল হয়েছে।</div>';
+  } catch(e) { document.getElementById('pwMsg').innerHTML = `<div class="err">${esc(e.message)}</div>`; }
+}
+async function ownerExport() {
+  try { const data = await api('owner_export', {owner: true});
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'haatbazar-export.json'; a.click();
+  } catch(e) { alert(e.message); }
+}
 
-        <div class="pay-strip">
-          <div>
-            <b>Payment &amp; Order</b>
-            <span>অর্ডার দেওয়ার আগে বিক্রেতার সাথে দাম ও ডেলিভারি নিশ্চিত করুন।</span>
-          </div>
-          <div class="pay-tags">
-            <span>বিক্রেতার সাথে সরাসরি যোগাযোগ</span>
-            <span>খুচরা ও পাইকারি</span>
-            <span>সারা বাংলাদেশ</span>
-          </div>
-        </div>
-
-        <div class="copy-strip">
-          <span>© 2026 HaatBazar — বাংলাদেশের অনলাইন কেনাবেচার বাজার</span>
-          <span class="links">
-            <button type="button" data-info="terms">শর্তাবলী</button>
-            <button type="button" data-info="privacy">গোপনীয়তা নীতি</button>
-          </span>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Floating WhatsApp Help -->
-    <a class="wa-float" target="_blank" rel="noopener" href="https://wa.me/+8801629152161?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20HaatBazar%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%AF%E0%A7%8D%E0%A6%AF%20%E0%A6%9A%E0%A6%BE%E0%A6%87%E0%A5%A4" aria-label="WhatsApp Help">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.1-2.3-.1a10.6 10.6 0 0 1-5.4-4.7c-.6-1-.6-1.9-.5-2 .1-.2.6-1.5.9-1.6h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c.7 1.2 1.5 2 2.6 2.6l.5-.5.6-.4c.2-.1.4-.1.6 0l2 .9c.5.3.5.5.4.7Z"/></svg>
-      WhatsApp Help
-    </a>
-
-    <script>
-      "use strict";
-      var WA_NUMBER = "+8801629152161";
-
-      var CATEGORIES = [
-        { key: "electronics", label: "ইলেকট্রনিক্স", color: "#2563eb", bg: "#e3ecfd" },
-        { key: "fashion", label: "ফ্যাশন", color: "#db2777", bg: "#fce4f0" },
-        { key: "home-kitchen", label: "ঘর ও রান্নাঘর", color: "#b45309", bg: "#fbeed3" },
-        { key: "grocery", label: "মুদি বাজার", color: "#65a30d", bg: "#ecf6d8" },
-        { key: "agriculture", label: "কৃষি পণ্য", color: "#15803d", bg: "#dcf2e2" },
-        { key: "livestock-poultry-fish", label: "গবাদি পশু, হাঁস-মুরগি ও মাছ", color: "#0e7490", bg: "#d7f0f5" },
-        { key: "machinery", label: "যন্ত্রপাতি", color: "#7c3aed", bg: "#eee7fd" },
-        { key: "vehicles", label: "যানবাহন", color: "#dc2626", bg: "#fde3e3" },
-        { key: "construction", label: "নির্মাণ সামগ্রী", color: "#92400e", bg: "#f3e6d5" },
-        { key: "beauty", label: "রূপচর্চা", color: "#c026d3", bg: "#f9e2fb" },
-        { key: "books-office", label: "বই ও অফিস", color: "#0369a1", bg: "#ddeefb" },
-        { key: "services-rentals", label: "সেবা ও ভাড়া", color: "#0f766e", bg: "#d8f1ec" }
-      ];
-      var CAT = {};
-      CATEGORIES.forEach(function (c) { CAT[c.key] = c; });
-
-      var UNIT_BN = { piece: "টি", bag: "বস্তা", maund: "মণ", ton: "টন", set: "সেট" };
-
-      var PRODUCTS = [
-        { id: 1, title: "Samsung Galaxy A55 5G (8GB RAM, 128GB)", category: "electronics", subcategory: "মোবাইল ফোন", district: "ঢাকা", upazila: "মিরপুর", price: 38500, unit: "piece", qty: 25, negotiable: false, delivery: true, description: "অফিসিয়াল ওয়ারেন্টি সহ নতুন স্মার্টফোন। Super AMOLED ডিসপ্লে, 50MP ক্যামেরা। ক্যাশ অন ডেলিভারি সুবিধা আছে।" },
-        { id: 2, title: "HP ProBook 440 G10 ল্যাপটপ (Core i5, 16GB RAM, 512GB SSD)", category: "electronics", subcategory: "কম্পিউটার ও ল্যাপটপ", district: "ঢাকা", upazila: "উত্তরা", price: 68500, unit: "piece", qty: 10, negotiable: true, delivery: true, description: "অফিস ও ফ্রিল্যান্সিং কাজের জন্য উপযুক্ত ল্যাপটপ। 14 ইঞ্চি FHD ডিসপ্লে, 1 বছর সার্ভিস ওয়ারেন্টি।" },
-        { id: 3, title: "ঢাকাই জামদানি শাড়ি — হাতে বোনা", category: "fashion", subcategory: "শাড়ি ও থ্রি-পিস", district: "নারায়ণগঞ্জ", upazila: "রূপগঞ্জ", price: 4500, unit: "piece", qty: 40, negotiable: true, delivery: true, description: "ঐতিহ্যবাহী ঢাকাই জামদানি, দক্ষ তাঁতির হাতে বোনা। পাইকারি অর্ডারে বিশেষ ছাড়।" },
-        { id: 4, title: "পুরুষদের চামড়ার লোফার জুতা (সব সাইজ)", category: "fashion", subcategory: "জুতা ও স্যান্ডেল", district: "চট্টগ্রাম", upazila: "পাহাড়তলী", price: 1450, unit: "piece", qty: 60, negotiable: false, delivery: true, description: "আসল চামড়ার তৈরি আরামদায়ক লোফার। সাইজ 39-44 পর্যন্ত পাওয়া যাবে।" },
-        { id: 5, title: "সেগুন কাঠের ডাবল খাট (৬ x ৭ ফুট)", category: "home-kitchen", subcategory: "সোফা ও খাট", district: "গাজীপুর", upazila: "টঙ্গী", price: 32000, unit: "piece", qty: 5, negotiable: true, delivery: true, description: "শুকনো সেগুন কাঠের মজবুত খাট, পালিশ সহ। ঢাকার ভিতরে ডেলিভারি ও সেটআপ ফ্রি।" },
-        { id: 6, title: "অ্যালুমিনিয়াম প্রেশার কুকার ৫.৫ লিটার", category: "home-kitchen", subcategory: "রান্নাঘরের সামগ্রী", district: "ঢাকা", upazila: "কেরানীগঞ্জ", price: 1650, unit: "piece", qty: 80, negotiable: false, delivery: true, description: "ভারী গেজের অ্যালুমিনিয়াম প্রেশার কুকার, সেফটি ভালভ সহ। পাইকারি নিলে দাম কমবে।" },
-        { id: 7, title: "নাজিরশাইল চাল — প্রিমিয়াম (২৫ কেজি বস্তা)", category: "grocery", subcategory: "চাল, ডাল ও শস্য", district: "নওগাঁ", upazila: "সদর", price: 1950, unit: "bag", qty: 200, negotiable: false, delivery: true, description: "ঝরঝরে ও সুগন্ধি নাজিরশাইল চাল। দোকান ও হোটেলের জন্য পাইকারি সরবরাহ করা হয়। (সর্বনিম্ন অর্ডার ৫ বস্তা)" },
-        { id: 8, title: "খাঁটি সরিষার তেল (৫ লিটার বোতল)", category: "grocery", subcategory: "তেল ও মসলা", district: "বগুড়া", upazila: "শেরপুর", price: 1250, unit: "piece", qty: 150, negotiable: false, delivery: true, description: "ঘানিতে ভাঙানো খাঁটি সরিষার তেল, কোনো ভেজাল নেই। রান্না ও আচারের জন্য উপযুক্ত।" },
-        { id: 9, title: "ব্রি ধান ২৮ (মণ প্রতি পাইকারি)", category: "agriculture", subcategory: "ধান ও চাল", district: "দিনাজপুর", upazila: "সদর", price: 1450, unit: "maund", qty: 500, negotiable: true, delivery: false, description: "শুকনো ও পরিষ্কার ব্রি ধান ২৮। মিলার ও আড়তদারদের জন্য ট্রাক লোড সরবরাহ সম্ভব। (সর্বনিম্ন অর্ডার ৫০ মণ)" },
-        { id: 10, title: "হাইব্রিড টমেটো বীজ (১০ গ্রাম প্যাকেট)", category: "agriculture", subcategory: "বীজ", district: "রাজশাহী", upazila: "পবা", price: 350, unit: "piece", qty: 300, negotiable: false, delivery: true, description: "উচ্চ ফলনশীল হাইব্রিড টমেটো বীজ, অঙ্কুরোদগম হার ৯০%+। কৃষকদের জন্য বিশেষ পরামর্শ ফ্রি।" },
-        { id: 11, title: "দেশি দুধেল গাভী (দৈনিক দুধ ৮-১০ লিটার)", category: "livestock-poultry-fish", subcategory: "দুধেল গাভী", district: "সিরাজগঞ্জ", upazila: "শাহজাদপুর", price: 95000, unit: "piece", qty: 3, negotiable: true, delivery: false, description: "সুস্থ ও টিকা দেওয়া দেশি গাভী, বর্তমানে দৈনিক ৮-১০ লিটার দুধ দিচ্ছে। খামারে এসে দেখে নিতে পারবেন।" },
-        { id: 12, title: "লেয়ার মুরগি — ডিম পাড়া (প্রতি পিস)", category: "livestock-poultry-fish", subcategory: "মুরগি ও হাঁস", district: "ময়মনসিংহ", upazila: "ত্রিশাল", price: 480, unit: "piece", qty: 200, negotiable: false, delivery: false, description: "ডিম উৎপাদন শুরু করা লেয়ার মুরগি। সর্বনিম্ন অর্ডার ৫০ পিস, খামার থেকে সংগ্রহ করতে হবে।" },
-        { id: 13, title: "পাওয়ার টিলার ১২ হর্সপাওয়ার (ডিজেল)", category: "machinery", subcategory: "কৃষিযন্ত্র", district: "যশোর", upazila: "সদর", price: 68500, unit: "piece", qty: 8, negotiable: true, delivery: true, description: "জমি চাষের জন্য শক্তিশালী পাওয়ার টিলার, 1 বছর ইঞ্জিন ওয়ারেন্টি ও ফ্রি সার্ভিসিং।" },
-        { id: 14, title: "ইলেকট্রিক ড্রিল মেশিন ৭৫০ ওয়াট", category: "machinery", subcategory: "পাওয়ার টুলস", district: "ঢাকা", upazila: "তেজগাঁও", price: 2850, unit: "piece", qty: 45, negotiable: false, delivery: true, description: "কংক্রিট ও কাঠে ছিদ্র করার ড্রিল মেশিন, বিট সেট সহ। ওয়ার্কশপ ও বাসার কাজে উপযোগী।" },
-        { id: 15, title: "Bajaj Pulsar N160 (২০২৩ মডেল, ব্যবহৃত)", category: "vehicles", subcategory: "মোটরসাইকেল", district: "খুলনা", upazila: "সোনাডাঙ্গা", price: 165000, unit: "piece", qty: 1, negotiable: true, delivery: false, description: "এক হাতে চালানো, মাত্র ৯,৫০০ কিমি চলেছে। কাগজপত্র হালনাগাদ, নাম পরিবর্তন সম্ভব।" },
-        { id: 16, title: "গাড়ির ব্যাটারি ১২V ৭০Ah (১৮ মাস ওয়ারেন্টি)", category: "vehicles", subcategory: "টায়ার ও ব্যাটারি", district: "ঢাকা", upazila: "মিরপুর", price: 9500, unit: "piece", qty: 30, negotiable: false, delivery: true, description: "প্রাইভেট কার ও মাইক্রোবাসের ব্যাটারি, পুরনো ব্যাটারিতে এক্সচেঞ্জ ছাড় আছে।" },
-        { id: 17, title: "৬০ গ্রেড রড (টন প্রতি পাইকারি)", category: "construction", subcategory: "রড ও সিমেন্ট", district: "নারায়ণগঞ্জ", upazila: "সিদ্ধিরগঞ্জ", price: 92000, unit: "ton", qty: 50, negotiable: true, delivery: true, description: "BSTI অনুমোদিত ৬০ গ্রেড রড। প্রজেক্ট সাইটে ডেলিভারি দেওয়া হয়। (সর্বনিম্ন অর্ডার ২ টন)" },
-        { id: 18, title: "প্রথম শ্রেণীর ইট (হাজার প্রতি)", category: "construction", subcategory: "ইট ও বালু", district: "মুন্সিগঞ্জ", upazila: "সদর", price: 11500, unit: "piece", qty: 100000, negotiable: true, delivery: true, description: "ভাটার প্রথম শ্রেণীর ইট, ভাঙন কম। দাম হাজার প্রতি, ট্রাকভাড়া আলাদা।" },
-        { id: 19, title: "ভিটামিন সি ফেস সিরাম ৩০ মি.লি.", category: "beauty", subcategory: "ত্বকের যত্ন", district: "ঢাকা", upazila: "ধানমন্ডি", price: 650, unit: "piece", qty: 120, negotiable: false, delivery: true, description: "সব ধরনের ত্বকের জন্য ভিটামিন সি সিরাম। আসল পণ্য, মেয়াদ প্যাকেটে দেওয়া।" },
-        { id: 20, title: "আরবি উদ আতর (১২ মি.লি.)", category: "beauty", subcategory: "পারফিউম", district: "চট্টগ্রাম", upazila: "কোতোয়ালী", price: 850, unit: "piece", qty: 75, negotiable: false, delivery: true, description: "দীর্ঘস্থায়ী সুগন্ধির অ্যালকোহল-মুক্ত উদ আতর। উপহার হিসেবেও চমৎকার।" },
-        { id: 21, title: "এইচএসসি টেস্ট পেপার সেট (সব বিষয়)", category: "books-office", subcategory: "পাঠ্যবই", district: "ঢাকা", upazila: "নীলক্ষেত", price: 780, unit: "set", qty: 90, negotiable: false, delivery: true, description: "সর্বশেষ সিলেবাস অনুযায়ী সব বিষয়ের টেস্ট পেপার ও মডেল টেস্ট, সমাধান সহ।" },
-        { id: 22, title: "A4 কাগজ ৮০gsm (প্রতি রিম)", category: "books-office", subcategory: "খাতা ও কাগজ", district: "রাজশাহী", upazila: "সদর", price: 520, unit: "piece", qty: 400, negotiable: false, delivery: true, description: "অফিস ও প্রিন্টের জন্য ৮০gsm A4 কাগজ। ১০ রিমের বেশি নিলে পাইকারি দাম।" },
-        { id: 23, title: "পিকআপ ভাড়া — ঢাকার ভিতরে (ট্রিপ প্রতি)", category: "services-rentals", subcategory: "পরিবহন ও ডেলিভারি", district: "ঢাকা", upazila: "যাত্রাবাড়ী", price: 2500, unit: "piece", qty: 10, negotiable: true, delivery: false, description: "বাসা বদল ও মালামাল পরিবহনের জন্য ১ টন পিকআপ, চালক সহ। আগে বুকিং দিলে সময়মতো পৌঁছে যাবে।" },
-        { id: 24, title: "এসি সার্ভিসিং ও গ্যাস রিফিল (বাসায় গিয়ে)", category: "services-rentals", subcategory: "মেরামত সেবা", district: "সিলেট", upazila: "সদর", price: 1500, unit: "piece", qty: 20, negotiable: false, delivery: false, description: "অভিজ্ঞ টেকনিশিয়ান বাসায় গিয়ে এসি সার্ভিসিং, গ্যাস রিফিল ও মেরামত করে। ৩০ দিনের সার্ভিস গ্যারান্টি।" }
-      ];
-
-      var ICONS = {
-        "electronics": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>',
-        "fashion": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 3 8l2 3 2-1v10h10V10l2 1 2-3-5-4a4 4 0 0 1-8 0Z"/></svg>',
-        "home-kitchen": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 13a2 2 0 0 1 4 0v1h12v-1a2 2 0 0 1 4 0v3a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3Z"/><path d="M5 21v-2M19 21v-2"/></svg>',
-        "grocery": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.5 12a2 2 0 0 1-2 1.8h-9A2 2 0 0 1 5.5 19Z"/><path d="M8 10V6a4 4 0 0 1 8 0v4"/></svg>',
-        "agriculture": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V9"/><path d="M12 9C12 5 9 2.5 4.5 2.5c0 4.5 3 7 7.5 6.5ZM12 13c0-4 3-6.5 7.5-6.5 0 4.5-3 7-7.5 6.5Z"/></svg>',
-        "livestock-poultry-fish": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c3-4 7-6 10-6 4 0 7 3 8 6-1 3-4 6-8 6-3 0-7-2-10-6Z"/><circle cx="16.5" cy="10.5" r=".6" fill="COLOR"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/></svg>',
-        "machinery": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>',
-        "vehicles": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M5.5 17 9 8h5l4.5 9M9 8 7.5 5H5M14 8l-2 9"/></svg>',
-        "construction": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="13" width="18" height="7" rx="1"/><path d="M9 13v7M15 13v7M3 16.5h18M6 4.5 3 13M18.5 3l2.5 5.5L12 13"/></svg>',
-        "beauty": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 2.5 5 3.8 5 8a5 5 0 0 1-10 0c0-4.2 3.5-5.5 5-8Z"/><path d="M9.5 21h5"/></svg>',
-        "books-office": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M8.5 7.5H16"/></svg>',
-        "services-rentals": '<svg viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 1 5.6 4.9L9 22.5a2.1 2.1 0 0 1-3 0l-2.5-2.5a2.1 2.1 0 0 1 0-3L14.5 6.5Z" transform="scale(.92) translate(1 0)"/><circle cx="16" cy="7" r="1.4"/></svg>'
-      };
-      var WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.1-2.3-.1a10.6 10.6 0 0 1-5.4-4.7c-.6-1-.6-1.9-.5-2 .1-.2.6-1.5.9-1.6h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c.7 1.2 1.5 2 2.6 2.6l.5-.5.6-.4c.2-.1.4-.1.6 0l2 .9c.5.3.5.5.4.7Z"/></svg>';
-      var PIN_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>';
-
-      var INFO = {
-        "help": {
-          title: "সাহায্য কেন্দ্র",
-          intro: "হাটবাজারে কেনাবেচা নিয়ে সাধারণ প্রশ্নের উত্তর এখানে পাবেন। তবু সমস্যা থাকলে WhatsApp-এ আমাদের জানান।",
-          bullets: [
-            "<b>কীভাবে অর্ডার করব?</b> — পণ্যের পেজে গিয়ে “অর্ডার করুন” চাপুন, নাম-ফোন-ঠিকানা দিয়ে ফর্মটি পূরণ করুন। ফর্ম জমা দিলেই অর্ডারটি WhatsApp-এর মাধ্যমে বিক্রেতার কাছে পৌঁছে যাবে। অথবা একই পেজের সবুজ WhatsApp বোতামে সরাসরি অর্ডার করতে পারবেন।",
-            "<b>পেমেন্ট কীভাবে করব?</b> — ক্যাশ অন ডেলিভারি সবচেয়ে সহজ: পণ্য হাতে পেয়ে টাকা দিন। চাইলে বিকাশ, নগদ বা রকেটেও দিতে পারবেন — বিক্রেতার নম্বর নিশ্চিত হয়ে তারপর পাঠান।",
-            "<b>ডেলিভারি কতদিন লাগবে?</b> — ঢাকার ভিতরে সাধারণত ২৪–৪৮ ঘণ্টা, ঢাকার বাইরে ২–৪ দিন। ভারী পণ্যে সময় একটু বেশি লাগতে পারে।",
-            "<b>বিক্রেতা হতে চাইলে কী করব?</b> — WhatsApp +8801629152161 নম্বরে লিখুন; আপনার পণ্যের বিজ্ঞাপন দেওয়ার ব্যবস্থা করে দেওয়া হবে। আপাতত সম্পূর্ণ ফ্রি।",
-            "<b>সমস্যা হলে কোথায় জানাব?</b> — WhatsApp নম্বর +8801629152161-এ লিখুন। সকাল ৯টা – রাত ১০টার মধ্যে উত্তর দেওয়া হয়।"
-          ],
-          paragraphs: [
-            "অর্ডার করার পর বিক্রেতা আপনাকে ফোন করে দাম, ডেলিভারি চার্জ ও সময় নিশ্চিত করবেন।",
-            "কোনো পণ্যের তথ্য ভুল মনে হলে বা প্রতারণার সন্দেহ হলে সাথে সাথে আমাদের জানান — আমরা বিজ্ঞাপনটি যাচাই করে ব্যবস্থা নেব।"
-          ]
-        },
-        "how-to-buy": {
-          title: "কীভাবে কিনবেন",
-          intro: "হাটবাজারে কেনাকাটা মাত্র ৫ ধাপে — হাটে যাওয়ার মতোই সহজ।",
-          bullets: [
-            "<b>১. পণ্য খুঁজুন</b> — সার্চ বক্সে নাম লিখুন অথবা ক্যাটাগরি ও জেলা দিয়ে ফিল্টার করুন।",
-            "<b>২. বিবরণ দেখুন</b> — দাম, স্টক, বিক্রেতার নাম ও এলাকা ভালো করে দেখে নিন। “দরদাম করা যাবে” লেখা থাকলে দাম নিয়ে কথা বলতে পারবেন।",
-            "<b>৩. অর্ডার করুন বা WhatsApp-এ লিখুন</b> — “অর্ডার করুন” বোতামে ফর্ম পূরণ করুন; জমা দিলেই অর্ডার WhatsApp-এ বিক্রেতার কাছে চলে যাবে। অথবা পাশের WhatsApp বোতামে এক ক্লিকে চ্যাট শুরু করুন।",
-            "<b>৪. বিক্রেতার নিশ্চিতকরণ</b> — বিক্রেতা ফোন/চ্যাটে অর্ডার, দাম ও ডেলিভারি নিশ্চিত করবেন। এই সময় ডেলিভারি চার্জটাও জেনে নিন।",
-            "<b>৫. পণ্য পেয়ে টাকা দিন</b> — ক্যাশ অন ডেলিভারিতে পণ্য হাতে পেয়ে যাচাই করে তারপর টাকা পরিশোধ করুন।"
-          ],
-          paragraphs: [
-            "খুচরা ও পাইকারি — দুই ধরনের কেনাকাটাই করা যায়। পাইকারি পণ্যে বিবরণে সর্বনিম্ন অর্ডারের পরিমাণ লেখা থাকে, যেমন ৫ বস্তা বা ৫০ মণ।"
-          ]
-        },
-        "refund": {
-          title: "রিফান্ড ও রিটার্ন নীতি",
-          intro: "পণ্যে সমস্যা থাকলে ক্রেতা যেন ক্ষতিগ্রস্ত না হন — সেজন্যই এই নীতি।",
-          bullets: [
-            "ভুল পণ্য, ক্ষতিগ্রস্ত পণ্য বা বিবরণের সাথে না মিললে ডেলিভারির ৪৮ ঘণ্টার মধ্যে বিক্রেতাকে জানালে বদলি পণ্য বা রিফান্ড পাবেন।",
-            "খাবার ও পচনশীল পণ্য ডেলিভারির সময়ই যাচাই করে নিন — পরে অভিযোগ গ্রহণ করা কঠিন হয়।",
-            "পণ্য ফেরত পাঠানোর সময় প্যাকেজিং অক্ষত রাখুন এবং বিক্রেতার সাথে কথা বলে ফেরতের পদ্ধতি ঠিক করুন।",
-            "অগ্রিম পেমেন্ট (বিকাশ / নগদ / রকেট) করা থাকলে রিফান্ড একই মোবাইল ব্যাংকিং মাধ্যমে ৩–৫ কর্মদিবসের মধ্যে পাঠানো হবে।",
-            "ক্রেতার নিজের ভুলে অর্ডার (ভুল ঠিকানা বা মত বদল) হলে ডেলিভারি চার্জ ক্রেতাকে বহন করতে হতে পারে — সিদ্ধান্ত বিক্রেতার সাথে আলোচনা করে হবে।"
-          ],
-          paragraphs: [
-            "বিক্রেতার সাথে সরাসরি কথা বলে সমাধান না হলে আমাদের WhatsApp +8801629152161 নম্বরে জানান — আমরা দুই পক্ষের সাথে কথা বলে মধ্যস্থতা করার চেষ্টা করব।"
-          ]
-        },
-        "delivery": {
-          title: "ডেলিভারি তথ্য",
-          intro: "ডেলিভারির ব্যবস্থা করেন বিক্রেতারা নিজেরাই — কুরিয়ার, নিজস্ব পরিবহন বা ক্রেতার এসে নিয়ে যাওয়া।",
-          bullets: [
-            "<b>ঢাকার ভিতরে:</b> সাধারণত ২৪–৪৮ ঘণ্টা।",
-            "<b>ঢাকার বাইরে:</b> সাধারণত ২–৪ দিন (কুরিয়ার বা পরিবহনে)।",
-            "ডেলিভারি চার্জ পণ্যের ওজন, আকার ও দূরত্ব অনুযায়ী বদলায় — অর্ডারের পর বিক্রেতা চার্জ নিশ্চিত করবেন। অর্ডার চূড়ান্ত করার আগে চার্জ জেনে নিন।",
-            "“ডেলিভারি আছে” লেখা পণ্য পাঠানো যায়; “এসে নিতে হবে” লেখা পণ্য বিক্রেতার ঠিকানা থেকে সংগ্রহ করতে হয়।",
-            "ভারী পণ্য (রড, ইট, গাভী, যন্ত্রপাতি) এর জন্য আলাদা পরিবহন (ট্রাক/পিকআপ) লাগে — ভাড়া ও সময় বিক্রেতার সাথে আলাদা করে ঠিক করুন।",
-            "গবাদি পশু ও জীবন্ত পণ্যের ডেলিভারিতে বিশেষ যত্ন লাগে; অনেক বিক্রেতা খামারে এসে দেখে নিয়ে যাওয়ার পরামর্শ দেন।"
-          ],
-          paragraphs: [
-            "ডেলিভারির সময় বাড়িতে থাকার চেষ্টা করুন এবং পণ্য হাতে পেয়ে সাথে সাথে যাচাই করুন। সমস্যা থাকলে ডেলিভারি ম্যান থাকা অবস্থাতেই বিক্রেতাকে জানান।"
-          ]
-        },
-        "terms": {
-          title: "শর্তাবলী ও ব্যবহারের শর্ত",
-          intro: "হাটবাজার ব্যবহার মানেই এই শর্তগুলো মেনে চলা। সহজ ভাষায় মূল কথাগুলো:",
-          bullets: [
-            "<b>সত্য তথ্য দিন</b> — ক্রেতা ও বিক্রেতা উভয়েই নিজের সঠিক নাম, ফোন নম্বর ও ঠিকানা ব্যবহার করবেন।",
-            "<b>বিক্রেতার দায়িত্ব</b> — পণ্যের সঠিক বিবরণ ও দাম দেওয়া, স্টক হালনাগাদ রাখা এবং প্রতিশ্রুত সময়ে পণ্য পাঠানো।",
-            "<b>ক্রেতার দায়িত্ব</b> — অর্ডারের আগে বিবরণ ভালো করে পড়া, ডেলিভারির সময় উপস্থিত থাকা এবং পণ্য পেয়ে নির্ধারিত মূল্য পরিশোধ করা।",
-            "<b>নিষিদ্ধ পণ্য</b> — অবৈধ, ভেজাল, মেয়াদোত্তীর্ণ বা আইনে নিষিদ্ধ কোনো পণ্য বিক্রি করা যাবে না। এমন বিজ্ঞাপন পেলেই সরিয়ে দেওয়া হবে।",
-            "<b>হাটবাজার একটি প্ল্যাটফর্ম</b> — কেনাবেচার লেনদেন সরাসরি ক্রেতা ও বিক্রেতার মধ্যে হয়; দাম ও ডেলিভারির চূড়ান্ত দায়িত্ব দুই পক্ষের।",
-            "বিরোধ হলে হাটবাজার উভয় পক্ষের কথা শুনে সহায়তা করার চেষ্টা করবে, তবে অগ্রিম পেমেন্টের ক্ষেত্রে যাচাই ছাড়া টাকা পাঠালে সেই ঝুঁকি ক্রেতার নিজের।",
-            "ভুয়া বিজ্ঞাপন বা প্রতারণার প্রমাণ পেলে সংশ্লিষ্ট বিজ্ঞাপন বন্ধ করে দেওয়া হতে পারে।"
-          ],
-          paragraphs: [
-            "সময়ে সময়ে এই শর্ত হালনাগাদ হতে পারে; হালনাগাদ শর্ত এই পেজেই প্রকাশ করা হবে।"
-          ]
-        },
-        "privacy": {
-          title: "গোপনীয়তা নীতি",
-          intro: "আপনার তথ্য আপনারই — আমরা শুধু কেনাবেচা সম্পন্ন করার জন্যই তা ব্যবহার করি।",
-          bullets: [
-            "যেসব তথ্য নেওয়া হয়: অর্ডারের সময় আপনার নাম, মোবাইল নম্বর ও ডেলিভারির ঠিকানা — যা আপনি নিজে WhatsApp-এর মাধ্যমে বিক্রেতার কাছে পাঠান।",
-            "ব্যবহার: অর্ডার সম্পন্ন করা ও বিক্রেতা যেন আপনার সাথে যোগাযোগ করতে পারেন — শুধু এই কাজেই তথ্য ব্যবহার হয়।",
-            "আপনার ফোন নম্বর বা ঠিকানা কোনো তৃতীয় পক্ষের কাছে বিক্রি বা ভাড়া দেওয়া হয় না।",
-            "এই ওয়েবসাইটে অর্ডারের কোনো তথ্য সংরক্ষণ করা হয় না — অর্ডার সরাসরি আপনার WhatsApp থেকে বিক্রেতার কাছে যায়।"
-          ],
-          paragraphs: [
-            "অপরিচিত কাউকে অগ্রিম টাকা পাঠানোর আগে বিক্রেতার পরিচয় ভালো করে যাচাই করুন। হাটবাজারের নাম করে কেউ OTP বা পাসওয়ার্ড চাইলে দেবেন না — আমরা কখনো তা চাই না।"
-          ]
-        },
-        "about": {
-          title: "আমাদের সম্পর্কে",
-          intro: "হাটবাজার — বাংলাদেশের খুচরা ও পাইকারি অনলাইন বাজার।",
-          bullets: [
-            "গ্রামের কৃষক, তাঁতী ও কারিগর — যারা ভালো পণ্য বানান কিন্তু শহরের ক্রেতা পান না।",
-            "শহর ও গ্রামের দোকানদার ও পাইকার — যাদের দরকার নির্ভরযোগ্য সরবরাহ।",
-            "সাধারণ ক্রেতা — যারা চেনা বিক্রেতার কাছ থেকে সঠিক দামে টাটকা পণ্য চান।"
-          ],
-          paragraphs: [
-            "আমাদের বিশ্বাস, বাংলাদেশের হাটের সবচেয়ে বড় শক্তি হলো চেনা মুখের বিশ্বাস — বিক্রেতার নাম, এলাকা আর যোগাযোগের মাধ্যম খোলামেলা থাকলে অনলাইনেও সেই বিশ্বাস তৈরি হয়। তাই হাটবাজারে পণ্যের পাশে বিক্রেতার আসল তথ্য থাকে, মধ্যস্বত্বভোগীর লুকানো চার্জ থাকে না।",
-            "কৃষি পণ্য থেকে ইলেকট্রনিক্স, গবাদি পশু থেকে নির্মাণ সামগ্রী — নানা ক্যাটাগরিতে কেনাবেচা চলে এখানে। আমাদের লক্ষ্য সারা দেশের ৬৪ জেলার ক্রেতা-বিক্রেতাকে এক হাটে আনা।",
-            "আপাতত হাটবাজারে বিজ্ঞাপন দেওয়া সম্পূর্ণ ফ্রি — কোনো কমিশন নেই।"
-          ]
-        },
-        "seller-support": {
-          title: "বিক্রেতা সহায়তা",
-          intro: "বিক্রেতা হিসেবে সফল হতে যা যা জানা দরকার — সব এখানে।",
-          bullets: [
-            "<b>কীভাবে বিজ্ঞাপন দেবেন:</b> WhatsApp +8801629152161 নম্বরে আপনার পণ্যের নাম, দাম, ছবি ও এলাকার তথ্য পাঠান — আমরা বিজ্ঞাপনটি সাজিয়ে প্রকাশ করে দেব।",
-            "<b>ভালো বিবরণের টিপস:</b> পণ্যের নামে মূল বৈশিষ্ট্য লিখুন (যেমন ওজন, সাইজ, মডেল); বিবরণে অবস্থা, সর্বনিম্ন অর্ডার ও ডেলিভারির কথা পরিষ্কার লিখুন।",
-            "<b>দাম ঠিক রাখুন:</b> বাজারের চলতি দামের সাথে মিলিয়ে দাম দিন; দরদামে রাজি থাকলে তা জানিয়ে দিন — এতে ক্রেতা বেশি আসে।",
-            "<b>পাইকারি বিক্রির নিয়ম:</b> পাইকারি দাম ও সর্বনিম্ন অর্ডারের পরিমাণ বিবরণে স্পষ্ট লিখুন।",
-            "<b>স্টক শেষ হলে</b> WhatsApp-এ জানিয়ে দিন — বিজ্ঞাপন সরিয়ে/থামিয়ে দেওয়া হবে, এতে অযথা অর্ডার ও অভিযোগ কমবে।",
-            "<b>কমিশন:</b> আপাতত ফ্রি — হাটবাজারে বিজ্ঞাপন দিতে বা বিক্রি করতে কোনো কমিশন লাগে না।",
-            "<b>সহায়তা:</b> কোনো সমস্যায় WhatsApp +8801629152161 নম্বরে লিখুন (সকাল ৯টা – রাত ১০টা)।"
-          ],
-          paragraphs: [
-            "ক্রেতার ফোনের উত্তর দ্রুত দিলে বিক্রি বাড়ে — অর্ডারের বার্তা পেলে দ্রুত উত্তর দিন। ভদ্র ব্যবহারই হাটের ব্যবসায়ীর আসল পুঁজি।"
-          ]
-        },
-        "post-ad": {
-          title: "বিক্রির জন্য বিজ্ঞাপন দিন",
-          intro: "আপনার পণ্য হাটবাজারে বিক্রি করতে চান? খুব সহজ — বিজ্ঞাপন দেওয়া আপাতত সম্পূর্ণ ফ্রি, কোনো কমিশন নেই।",
-          bullets: [
-            "WhatsApp-এ <b>+8801629152161</b> নম্বরে লিখুন: “আমি হাটবাজারে বিজ্ঞাপন দিতে চাই।”",
-            "পণ্যের <b>নাম, দাম, পরিমাণ/স্টক, আপনার জেলা ও উপজেলা</b> এবং পণ্যের <b>ছবি</b> পাঠান।",
-            "পাইকারি হলে সর্বনিম্ন অর্ডারের পরিমাণ আর ডেলিভারি দেওয়া যাবে কিনা তাও জানান।",
-            "আমরা তথ্য যাচাই করে বিজ্ঞাপনটি হাটবাজারে প্রকাশ করে দেব — ক্রেতারা সরাসরি আপনার সাথে যোগাযোগ করবে।"
-          ],
-          paragraphs: [
-            "বিজ্ঞাপন প্রকাশের পর ক্রেতার অর্ডার ও জিজ্ঞাসা সরাসরি আপনার WhatsApp/ফোনে আসবে। স্টক শেষ হলে একই নম্বরে জানালেই বিজ্ঞাপন থামিয়ে দেওয়া হবে।"
-          ],
-          cta: true
-        }
-      };
-
-      /* ---------- helpers ---------- */
-      function bnNum(n) { return Number(n).toLocaleString("bn-BD"); }
-      function fmtPrice(n) { return bnNum(n) + " টাকা"; }
-      function unitBn(u) { return UNIT_BN[u] || u; }
-      function esc(s) {
-        return String(s).replace(/[&<>"']/g, function (m) {
-          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m];
-        });
-      }
-      function iconFor(catKey, big) {
-        var c = CAT[catKey];
-        return (ICONS[catKey] || ICONS["electronics"]).split("COLOR").join(c.color);
-      }
-      function waLink(text) { return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text); }
-      function productWaText(p) {
-        return "আসসালামু আলাইকুম, আমি HaatBazar থেকে \"" + p.title + "\" (" + fmtPrice(p.price) + ") কিনতে চাই।";
-      }
-
-      /* ---------- state ---------- */
-      var state = { cat: "", district: "", query: "", current: null };
-
-      /* ---------- views ---------- */
-      var VIEWS = ["home", "product", "order", "info", "contact"];
-      function show(name) {
-        VIEWS.forEach(function (v) {
-          document.getElementById("view-" + v).classList.toggle("on", v === name);
-        });
-        window.scrollTo({ top: 0 });
-      }
-
-      /* ---------- category bar ---------- */
-      var catBar = document.getElementById("catBar");
-      function renderCats() {
-        var html = '<button type="button" class="cat-chip' + (state.cat === "" ? " active" : "") + '" data-cat="">সবগুলো</button>';
-        CATEGORIES.forEach(function (c) {
-          html += '<button type="button" class="cat-chip' + (state.cat === c.key ? " active" : "") + '" data-cat="' + c.key + '"><span class="dot" style="background:' + c.color + '"></span>' + esc(c.label) + "</button>";
-        });
-        catBar.innerHTML = html;
-        catBar.querySelectorAll("[data-cat]").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            state.cat = btn.getAttribute("data-cat");
-            renderCats(); renderGrid();
-          });
-        });
-      }
-
-      /* ---------- district filter ---------- */
-      var districtSel = document.getElementById("districtFilter");
-      (function fillDistricts() {
-        var seen = {};
-        PRODUCTS.forEach(function (p) { seen[p.district] = true; });
-        Object.keys(seen).sort().forEach(function (d) {
-          var o = document.createElement("option");
-          o.value = d; o.textContent = d;
-          districtSel.appendChild(o);
-        });
-      })();
-      districtSel.addEventListener("change", function () { state.district = districtSel.value; renderGrid(); });
-
-      /* ---------- grid ---------- */
-      var grid = document.getElementById("grid");
-      var gridCount = document.getElementById("gridCount");
-      var clearBtn = document.getElementById("clearFilters");
-      var filterNote = document.getElementById("activeFilterNote");
-      function filtered() {
-        var q = state.query.trim().toLowerCase();
-        return PRODUCTS.filter(function (p) {
-          if (state.cat && p.category !== state.cat) return false;
-          if (state.district && p.district !== state.district) return false;
-          if (q) {
-            var hay = (p.title + " " + p.subcategory + " " + CAT[p.category].label + " " + p.district).toLowerCase();
-            if (hay.indexOf(q) === -1) return false;
-          }
-          return true;
-        });
-      }
-      function renderGrid() {
-        var list = filtered();
-        gridCount.textContent = "(" + bnNum(list.length) + "টি)";
-        var notes = [];
-        if (state.cat) notes.push("ক্যাটাগরি: " + CAT[state.cat].label);
-        if (state.query.trim()) notes.push("খোঁজ: “" + state.query.trim() + "”");
-        filterNote.textContent = notes.join(" · ");
-        clearBtn.hidden = !(state.cat || state.district || state.query.trim());
-        if (!list.length) {
-          grid.innerHTML = '<div class="empty"><strong>কোনো পণ্য পাওয়া যায়নি</strong>অন্য নামে খুঁজে দেখুন অথবা ফিল্টার বদলে আবার চেষ্টা করুন।</div>';
-          return;
-        }
-        grid.innerHTML = list.map(function (p) {
-          var c = CAT[p.category];
-          return '<button type="button" class="card" data-id="' + p.id + '">' +
-            '<span class="card-visual" style="background:' + c.bg + '">' + iconFor(p.category) +
-            '<span class="sub">' + esc(p.subcategory) + "</span></span>" +
-            '<span class="card-body">' +
-            '<span class="card-title">' + esc(p.title) + "</span>" +
-            (p.negotiable ? '<span class="neg-tag">দরদাম করা যাবে</span>' : "") +
-            '<span class="card-price">' + fmtPrice(p.price) + "</span>" +
-            '<span class="card-loc">' + PIN_ICON + esc(p.district) + ", " + esc(p.upazila) + "</span>" +
-            "</span></button>";
-        }).join("");
-        grid.querySelectorAll("[data-id]").forEach(function (el) {
-          el.addEventListener("click", function () { openProduct(Number(el.getAttribute("data-id"))); });
-        });
-      }
-      clearBtn.addEventListener("click", function () {
-        state.cat = ""; state.district = ""; state.query = "";
-        districtSel.value = "";
-        document.getElementById("headerSearch").value = "";
-        document.getElementById("heroSearch").value = "";
-        renderCats(); renderGrid();
-      });
-
-      /* ---------- search ---------- */
-      function bindSearch(formId, inputId) {
-        document.getElementById(formId).addEventListener("submit", function (e) {
-          e.preventDefault();
-          state.query = document.getElementById(inputId).value;
-          show("home"); renderGrid();
-          document.getElementById("grid").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-        document.getElementById(inputId).addEventListener("input", function (e) {
-          state.query = e.target.value;
-          if (state.query === "") renderGrid();
-        });
-      }
-      bindSearch("headerSearchForm", "headerSearch");
-      bindSearch("heroSearchForm", "heroSearch");
-
-      /* ---------- product detail ---------- */
-      function openProduct(id) {
-        var p = PRODUCTS.filter(function (x) { return x.id === id; })[0];
-        if (!p) return;
-        state.current = p;
-        var c = CAT[p.category];
-        document.getElementById("detailBox").innerHTML =
-          '<div class="detail-visual" style="background:' + c.bg + '">' + iconFor(p.category) +
-          '<span class="sub">' + esc(c.label) + " · " + esc(p.subcategory) + "</span></div>" +
-          '<div class="detail-body">' +
-          '<div class="detail-cat">' + esc(c.label) + " › " + esc(p.subcategory) + "</div>" +
-          "<h2>" + esc(p.title) + "</h2>" +
-          '<div class="detail-price">' + fmtPrice(p.price) + "</div>" +
-          (p.negotiable ? '<div style="margin-top:6px"><span class="neg-tag">দরদাম করা যাবে — বিক্রেতার সাথে কথা বলুন</span></div>' : "") +
-          '<p class="detail-desc">' + esc(p.description) + "</p>" +
-          '<div class="spec-grid">' +
-          '<div class="spec"><b>মজুদ আছে</b><span>' + bnNum(p.qty) + " " + esc(unitBn(p.unit)) + "</span></div>" +
-          '<div class="spec"><b>জেলা</b><span>' + esc(p.district) + "</span></div>" +
-          '<div class="spec"><b>এলাকা / উপজেলা</b><span>' + esc(p.upazila) + "</span></div>" +
-          '<div class="spec"><b>ডেলিভারি</b><span>' + (p.delivery ? "ডেলিভারি আছে" : "এসে নিতে হবে") + "</span></div>" +
-          '<div class="spec"><b>পেমেন্ট</b><span>ক্যাশ অন ডেলিভারি / বিকাশ / নগদ / রকেট</span></div>' +
-          '<div class="spec"><b>বিক্রেতা</b><span>HaatBazar Official Store</span></div>' +
-          "</div>" +
-          '<div class="seller-box">' +
-          '<span class="seller-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 4.6 4h14.8L21 9.5"/><path d="M4 9.5h16V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M9.5 21v-6h5v6"/></svg></span>' +
-          '<div class="who"><b>HaatBazar Official Store</b><span>' + esc(p.district) + ", " + esc(p.upazila) + " — যাচাই করা বিক্রেতা</span></div>" +
-          "</div>" +
-          '<div class="action-row">' +
-          '<a class="btn btn-wa" target="_blank" rel="noopener" href="' + waLink(productWaText(p)) + '">' + WA_ICON + "WhatsApp-এ অর্ডার করুন</a>" +
-          '<button type="button" class="btn btn-order" id="goOrder">অর্ডার করুন</button>' +
-          "</div></div>";
-        show("product");
-        document.getElementById("goOrder").addEventListener("click", function () { openOrder(p); });
-      }
-
-      /* ---------- order form ---------- */
-      var orderProduct = null;
-      function openOrder(p) {
-        orderProduct = p;
-        var c = CAT[p.category];
-        document.getElementById("orderProd").innerHTML =
-          '<span class="thumb" style="background:' + c.bg + '">' + iconFor(p.category) + "</span>" +
-          "<div><b>" + esc(p.title) + "</b><span>" + fmtPrice(p.price) + "</span></div>";
-        document.getElementById("ordQty").max = p.qty;
-        updateTotal();
-        show("order");
-      }
-      function orderQty() {
-        var q = parseInt(document.getElementById("ordQty").value, 10);
-        if (isNaN(q) || q < 1) q = 1;
-        if (orderProduct && q > orderProduct.qty) q = orderProduct.qty;
-        return q;
-      }
-      function updateTotal() {
-        if (!orderProduct) return;
-        document.getElementById("ordTotal").textContent = fmtPrice(orderProduct.price * orderQty());
-      }
-      document.getElementById("ordQty").addEventListener("input", updateTotal);
-      document.getElementById("orderBack").addEventListener("click", function () {
-        if (state.current) openProduct(state.current.id); else show("home");
-      });
-      document.getElementById("orderForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        if (!orderProduct) return;
-        var name = document.getElementById("ordName").value.trim();
-        var phoneRaw = document.getElementById("ordPhone").value.replace(/[\s-]/g, "");
-        var addr = document.getElementById("ordAddr").value.trim();
-        var pay = document.getElementById("ordPay").value;
-        var qty = orderQty();
-        var ok = true;
-        function mark(fieldId, valid) {
-          document.getElementById(fieldId).classList.toggle("invalid", !valid);
-          if (!valid) ok = false;
-        }
-        mark("fName", name.length >= 2);
-        mark("fPhone", /^01\d{9}$/.test(phoneRaw));
-        mark("fAddr", addr.length >= 6);
-        if (!ok) return;
-        var p = orderProduct;
-        var msg =
-          "আসসালামু আলাইকুম, আমি HaatBazar থেকে অর্ডার করতে চাই।\n\n" +
-          "পণ্য: " + p.title + "\n" +
-          "দাম: " + fmtPrice(p.price) + "\n" +
-          "পরিমাণ: " + bnNum(qty) + " " + unitBn(p.unit) + "\n" +
-          "সর্বমোট: " + fmtPrice(p.price * qty) + " (ডেলিভারি চার্জ ছাড়া)\n\n" +
-          "আমার নাম: " + name + "\n" +
-          "মোবাইল: " + phoneRaw + "\n" +
-          "ঠিকানা: " + addr + "\n" +
-          "পেমেন্ট: " + pay;
-        window.open(waLink(msg), "_blank", "noopener");
-      });
-      ["ordName", "ordPhone", "ordAddr"].forEach(function (id) {
-        document.getElementById(id).addEventListener("input", function () {
-          this.closest(".field").classList.remove("invalid");
-        });
-      });
-
-      /* ---------- info pages ---------- */
-      function openInfo(key) {
-        var page = INFO[key];
-        if (!page) return;
-        var html = "<h2>" + esc(page.title) + '</h2><p class="intro">' + esc(page.intro) + "</p>";
-        if (page.bullets && page.bullets.length) {
-          html += "<ul>" + page.bullets.map(function (b) { return "<li>" + b + "</li>"; }).join("") + "</ul>";
-        }
-        (page.paragraphs || []).forEach(function (t) { html += "<p>" + esc(t) + "</p>"; });
-        if (page.cta) {
-          html += '<div class="action-row" style="margin-top:6px"><a class="btn btn-wa" target="_blank" rel="noopener" href="' +
-            waLink("আসসালামু আলাইকুম, আমি HaatBazar-এ আমার পণ্যের বিজ্ঞাপন দিতে চাই।") + '">' + WA_ICON +
-            "WhatsApp-এ বিজ্ঞাপনের জন্য লিখুন</a></div>";
-        }
-        document.getElementById("infoBox").innerHTML = html;
-        show("info");
-      }
-      document.querySelectorAll("[data-info]").forEach(function (el) {
-        el.addEventListener("click", function () { openInfo(el.getAttribute("data-info")); });
-      });
-      document.querySelectorAll("[data-nav]").forEach(function (el) {
-        el.addEventListener("click", function () { show(el.getAttribute("data-nav")); });
-      });
-      document.getElementById("brandHome").addEventListener("click", function (e) { e.preventDefault(); show("home"); });
-      document.getElementById("popCats").addEventListener("click", function () {
-        show("home");
-        setTimeout(function () {
-          document.getElementById("categoriesSection").scrollIntoView({ behavior: "smooth" });
-        }, 30);
-      });
-
-      /* ---------- init ---------- */
-      renderCats();
-      renderGrid();
-    </script>
-  </body>
+// ---------------- router / init ----------------
+function applySettings() {
+  const st = S.settings;
+  document.documentElement.style.setProperty('--brand', st.theme || '#0f7a3d');
+  document.getElementById('siteName').textContent = st.site_name || 'হাটবাজার';
+  document.getElementById('siteTag').textContent = st.tagline || '';
+  document.getElementById('footName').textContent = st.site_name || 'হাটবাজার';
+  document.getElementById('footAbout').textContent = st.footer_about || '';
+  document.getElementById('copyright').textContent = st.copyright || '';
+  const ann = document.getElementById('announce');
+  ann.textContent = st.announcement || ''; ann.style.display = st.announcement ? 'block' : 'none';
+  document.getElementById('waFloat').href = waLink('আসসালামু আলাইকুম, সাহায্য দরকার।');
+  document.title = (st.site_name || 'হাটবাজার') + ' — ' + (st.tagline || 'বাংলাদেশের কেনাবেচা');
+}
+function render() {
+  const h = location.hash || '#/';
+  const parts = h.replace(/^#\//, '').split('/');
+  window.scrollTo(0, 0);
+  if (S.settings.maintenance === '1' && parts[0] !== 'owner' && !otoken()) {
+    app.innerHTML = `<div class="card" style="max-width:520px;margin:40px auto;text-align:center"><h2 class="mb">🛠️ সাময়িক রক্ষণাবেক্ষণ চলছে</h2><p class="mut">সাইটটি কিছুক্ষণের জন্য বন্ধ আছে। একটু পরে আবার চেষ্টা করুন। জরুরি প্রয়োজনে WhatsApp-এ মেসেজ করুন।</p></div>`;
+    return;
+  }
+  if (parts[0] === '' ) return viewHome();
+  if (parts[0] === 'product') return viewProduct(parts[1]);
+  if (parts[0] === 'login') return viewLogin();
+  if (parts[0] === 'signup') return viewSignup();
+  if (parts[0] === 'account') return viewAccount();
+  if (parts[0] === 'post') return viewPost();
+  if (parts[0] === 'page') return viewPage(parts[1]);
+  if (parts[0] === 'owner') return viewOwner();
+  viewHome();
+}
+window.addEventListener('hashchange', render);
+(async function init() {
+  try { const boot = await api('bootstrap'); S.settings = boot.settings; S.categories = boot.categories; } catch(e) {}
+  applySettings();
+  if (token()) { try { const m = await api('me'); S.user = m.user; } catch(e) { localStorage.removeItem('hb_token'); } }
+  renderAuth(); render();
+})();
+</script>
+</body>
 </html>
