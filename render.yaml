@@ -1,0 +1,64 @@
+# HaatBazar — Render Blueprint
+# Deploy: Render Dashboard -> New -> Blueprint -> connect the GitHub repo that contains this file.
+# Region: Singapore (closest to Bangladesh). Plan: Starter ($7/mo) + 10 GB persistent disk ($0.25/GB/mo).
+# The app stores its SQLite database, sessions and uploaded images in DATA_DIR, which is
+# mounted on the persistent disk below. Keep the service at exactly 1 instance (SQLite).
+services:
+  - type: web
+    name: haatbazar
+    runtime: node
+    region: singapore
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/healthz
+    disk:
+      name: haatbazar-data
+      mountPath: /var/data
+      sizeGB: 10
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: SESSION_SECRET
+        generateValue: true
+      # Fill these in the Render dashboard when creating the Blueprint (sync: false = Render asks you).
+      # PUBLIC_BASE_URL: first use the service's own https://<name>.onrender.com address,
+      # or your custom domain once it is connected.
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      # Real registered business details — these appear on the site's legal pages. Do not invent them.
+      - key: BUSINESS_LEGAL_NAME
+        sync: false
+      - key: BUSINESS_ADDRESS
+        sync: false
+      - key: BUSINESS_PHONE
+        sync: false
+      - key: SUPPORT_EMAIL
+        sync: false
+      - key: TRADE_LICENSE_NO
+        sync: false
+      # Optional integrations — the site runs without them; the related features stay off.
+      - key: SSLCOMMERZ_STORE_ID
+        sync: false
+      - key: SSLCOMMERZ_STORE_PASSWORD
+        sync: false
+      - key: SSLCOMMERZ_LIVE
+        value: "false"
+      - key: SMS_API_URL
+        sync: false
+      - key: SMS_API_KEY
+        sync: false
+      - key: COURIER_API_URL
+        sync: false
+      - key: COURIER_API_KEY
+        sync: false
+      - key: COURIER_API_SECRET
+        sync: false
