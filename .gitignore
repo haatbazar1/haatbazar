@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Real PHP config (database + payment secrets) and local databases must never be committed
+infinityfree/config.php
+data/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
