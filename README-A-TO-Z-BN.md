@@ -25,7 +25,7 @@
 1. **Render (আসল full live — পরিকল্পনায় আছে):** Node সংস্করণ। `render.yaml` দিয়ে deploy হবে। দরকার: Render account, card, আর dashboard-এ env মান (নিচের checklist)। Service: Oregon region-এ তৈরি করা আছে।
 2. **InfinityFree / PHP (preview):** https://haatbazar1.kesug.com — টেবিল তৈরি ও 24টি পণ্য database-এ আছে। শেষ ধাপ বাকি: `htdocs/config.php`-তে database-এর **আসল password** বসানো (এখন placeholder আছে), তাহলেই API পণ্য দেখাবে।
 3. **GitHub Pages demo (শুধু design দেখার):** https://milonpro48-ux.github.io/haatbazar/ — এখানে admin panel simulated, আসল data নেই।
-4. **Muse app সংস্করণ:** Muse-এর ভিতরে পূর্ণাঙ্গ HaatBazar app (মালিক প্যানেল সহ) — সেখান থেকে public live link বানানো হচ্ছে।
+4. **Muse app সংস্করণ + GitHub Pages live:** Muse-এর ভিতরে পূর্ণাঙ্গ HaatBazar app (মালিক প্যানেল সহ)। সেটির public সংস্করণ এই repo-র `docs/index.html` থেকে live: https://haatbazar1.github.io/haatbazar/ (Pages source: branch `main`, folder `/docs`। নোট: `deploy-pages.yml` workflow-টি disable রাখা হয়েছে, যাতে পুরনো demo build এই live page-এর উপর না বসে।)
 
 ## Render env checklist (আসল মান শুধু Render dashboard-এ)
 
